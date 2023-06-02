@@ -11,6 +11,7 @@ import ProfileImg from "../../components/profile-img";
 import ActionLink from "../../components/action-link";
 import ButtonMain from "../../components/button-main";
 import Goods from "../../components/goods";
+import HeaderMain from "../../components/header-main";
 
 export default function Profile() {
   return (
@@ -22,12 +23,12 @@ export default function Profile() {
       <main className="main">
         <S.MainContainer>
           <S.MainCenterBlock>
-            <S.MainMenu>
+            <HeaderMain>
               <Logo />
               <FormMenu>
                 <ButtonMain>Вернуться на главную</ButtonMain>
               </FormMenu>
-            </S.MainMenu>
+            </HeaderMain>
             <HeaderTitle>{"Здравствуйте, Антон!"}</HeaderTitle>
             <S.MainProfile>
               <S.ProfileContent>

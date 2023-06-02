@@ -9,11 +9,12 @@ export const MainContent = styled.div`
     width: 100%;
     margin: 0 auto;
     overflow: hidden;
-    position: fixed;
+    /* position: fixed; 
     right: 0;
     left: 0;
     top: 134px;
     bottom: 84px;
+    */
   }
 `;
 
@@ -33,7 +34,7 @@ export const ContentCards = styled.div`
   scrollbar-color: #ffffff #2e2e2e;
   scrollbar-width: thin;
   scrollbar-width: 0px;
-  height: 922px;
+  /* height: 922px; */
 
   &::-webkit-scrollbar {
     width: 0px;

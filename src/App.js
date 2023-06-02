@@ -1,13 +1,11 @@
-import Main from "./pages/main";
 import "./App.css";
-import Profile from "./pages/profile";
+import AppRoutes from "./routes";
 
 function App() {
   return (
     <div className="App">
       <div className="App-container">
-        {/* <Main /> */}
-        <Profile />
+        <AppRoutes />
       </div>
     </div>
   );

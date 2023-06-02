@@ -7,6 +7,7 @@ import ContainerMain from "../../components/container-main";
 import Footer from "../../components/footer";
 import ButtonHeader from "../../components/button-header";
 import FormMenu from "../../components/form-menu";
+import HeaderMain from "../../components/header-main";
 
 export default function Main() {
   return (
@@ -15,13 +16,13 @@ export default function Main() {
         <ButtonHeader>{"Вход в личный кабинет"}</ButtonHeader>
       </Header>
       <main className="main">
-        <S.MainSearch>
+        <HeaderMain>
           <Logo />
           <FormMenu>
             <InputMain placeholder={"Поиск по объявлениям"}></InputMain>
             <S.ButtonSearch>Найти</S.ButtonSearch>
           </FormMenu>
-        </S.MainSearch>
+        </HeaderMain>
         <ContainerMain />
       </main>
       <Footer></Footer>

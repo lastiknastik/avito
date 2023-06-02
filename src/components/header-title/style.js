@@ -19,12 +19,11 @@ export const HeaderTitle = styled.h2`
     line-height: 29px;
     color: #000000;
     margin-bottom: 20px;
-    text-align: center;
-    position: relative;
 
     &::before {
       content: "";
-      display: block;
+      display: none;
+      /* display: block; */
       width: 12px;
       height: 12px;
       background-color: transparent;

@@ -3,6 +3,7 @@ import { device } from "../../constants";
 import ButtonMain from "../../components/button-main";
 import InputWithLabel from "../../components/input-with-label";
 
+//TODO: вынести в компонент. используется в article
 export const MainContainer = styled.div`
   max-width: 1178px;
   margin: 0 auto;
@@ -17,6 +18,7 @@ export const MainContainer = styled.div`
   }
 `;
 
+//TODO: вынести в компонент. используется в article
 export const MainCenterBlock = styled.div`
   @media ${device.mobile} {
     margin: 0 auto;
@@ -26,26 +28,6 @@ export const MainCenterBlock = styled.div`
   @media ${device.tablet} {
     margin: 0 auto;
     padding: 0 20px;
-  }
-`;
-
-export const MainMenu = styled.div`
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: start;
-  padding: 11px 0;
-  width: 100%;
-  padding: 31px 10px 64px;
-
-  @media ${device.mobile} {
-    display: none;
   }
 `;
 
