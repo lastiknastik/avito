@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { device } from "../../constants";
-import LayoutStack from "../../components/layouts/stack";
+import { device } from "../../../constants";
+import { LayoutStack } from "../../layouts/stack/style";
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -12,24 +12,14 @@ export const ConteinerEnter = styled.div`
   max-width: 100%;
   height: 100vh;
   margin: 0 auto;
-  position: relative;
+  display: flex;
   background-color: #f4f5f6;
 `;
 
 export const ModalBlock = styled.div`
-  position: absolute;
   z-index: 2;
-  left: calc(50% - (366px / 2));
-  top: calc(50% - (439px / 2));
+  margin: auto;
   opacity: 1;
-
-  @media ${device.tablet} {
-    position: absolute;
-    z-index: 2;
-    left: calc(50% - (320px / 2));
-    top: 55px;
-    opacity: 1;
-  }
 `;
 
 export const SignInForm = styled.form`
@@ -65,12 +55,12 @@ export const SignInForm = styled.form`
     align-items: center;
     padding: 40px 20px;
   }
-`;
 
-export const FormInputsWrapper = styled(LayoutStack)`
-  gap: 30px;
+  ${LayoutStack} {
+    gap: 30px;
 
-  @media ${device.tablet} {
-    gap: 14px;
+    @media ${device.tablet} {
+      gap: 14px;
+    }
   }
 `;

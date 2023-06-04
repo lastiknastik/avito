@@ -4,6 +4,7 @@ import Main from "./pages/main";
 import Profile from "./pages/profile";
 import Article from "./pages/article";
 import SignIn from "./pages/signin";
+import SignUp from "./pages/singup";
 
 export default function AppRoutes() {
   return (
@@ -12,6 +13,7 @@ export default function AppRoutes() {
       <Route path="/profile" element={<Profile />} />
       <Route path="/article" element={<Article />} />
       <Route path="/signin" element={<SignIn />} />
+      <Route path="/signup" element={<SignUp />} />
     </Routes>
   );
 }
