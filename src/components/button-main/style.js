@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { device } from "../../constants";
+import { FormModal } from "../../pages/new-adv/style";
 
 export const ButtonMain = styled.button`
   height: 50px;
@@ -18,5 +19,9 @@ export const ButtonMain = styled.button`
 
   @media ${device.mobile} {
     display: none;
+  }
+
+  ${FormModal} & {
+    width: fit-content;
   }
 `;

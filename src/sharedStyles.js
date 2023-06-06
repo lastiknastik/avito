@@ -12,3 +12,18 @@ export const title = css`
     line-height: 1;
   }
 `;
+
+export const placeholder = css`
+  font-family: "Roboto", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #0000004d;
+
+  @media ${device.mobile} {
+    font-size: 14px;
+    line-height: 21px;
+    color: #c4c4c4;
+  }
+`;
