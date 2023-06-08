@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { device } from "../../constants";
-import HeaderSubtitle from "../header-subtitle";
+import HeaderSubtitle from "../font-styles/header-subtitle";
 
 export const Main = styled.div`
   max-width: 1178px;

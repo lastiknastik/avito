@@ -8,10 +8,11 @@ import FormMenu from "../../components/form-menu";
 import HeaderTitle from "../../components/font-styles/header-title";
 import HeaderSubtitle from "../../components/font-styles/header-subtitle";
 import ProfileImg from "../../components/profile-img";
-import ActionLink from "../../components/action-link";
 import ButtonMain from "../../components/button-main";
 import Goods from "../../components/goods";
 import HeaderMain from "../../components/header-main";
+import Subheading from "../../components/font-styles/subheading";
+import ParagraphInfo from "../../components/font-styles/paragraph-info";
 
 export default function Profile() {
   return (
@@ -29,28 +30,35 @@ export default function Profile() {
                 <ButtonMain>Вернуться на главную</ButtonMain>
               </FormMenu>
             </HeaderMain>
-            <HeaderTitle>{"Здравствуйте, Антон!"}</HeaderTitle>
+            <HeaderTitle>{"Профиль продавца"}</HeaderTitle>
             <S.MainProfile>
               <S.ProfileContent>
-                <HeaderSubtitle>{"Настройки профиля"}</HeaderSubtitle>
                 <S.ProfileSettings>
                   <S.SettingsLeft>
                     <ProfileImg />
-                    <ActionLink>{"Заменить"}</ActionLink>
                   </S.SettingsLeft>
                   <S.SettingsRight>
-                    <S.SettingsForm>
-                      <S.InputWithLabelShort label={"Имя"} />
-                      <S.InputWithLabelShort label={"Фамилия"} />
-                      <S.InputWithLabelShort label={"Город"} />
-                      <S.InputWithLabelLong label={"Телефон"} />
-                      <S.ProfileSaveBtn>Сохранить</S.ProfileSaveBtn>
-                    </S.SettingsForm>
+                    <Subheading>{"Кирилл Матвеев"}</Subheading>
+                    <ParagraphInfo>{"Санкт-Петербург"}</ParagraphInfo>
+                    <ParagraphInfo>
+                      {"Продает товары с августа 2021"}
+                    </ParagraphInfo>
+                    <S.SellerImgMobileWrapper>
+                      <S.SellerImgMobileContent>
+                        <a href="#" target="_self" alt="seller-mobile">
+                          <img src="#" alt="" />
+                        </a>
+                      </S.SellerImgMobileContent>
+                    </S.SellerImgMobileWrapper>
+                    <ButtonMain>
+                      Показать телефон
+                      <span>8 905 ХХХ ХХ ХХ</span>
+                    </ButtonMain>
                   </S.SettingsRight>
                 </S.ProfileSettings>
               </S.ProfileContent>
             </S.MainProfile>
-            <HeaderSubtitle>{"Мои товары"}</HeaderSubtitle>
+            <HeaderSubtitle>{"Товары продавца"}</HeaderSubtitle>
           </S.MainCenterBlock>
           <Goods />
         </S.MainContainer>

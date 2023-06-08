@@ -1,5 +1,5 @@
 import * as S from "./style";
-import HeaderSubtitle from "../header-subtitle";
+import HeaderSubtitle from "../font-styles/header-subtitle";
 import React from "react";
 
 function ImgBarItem() {

@@ -15,7 +15,7 @@ export const HeaderMain = styled.div`
   padding: 11px 0;
   max-width: 1178px;
   margin: 0 auto;
-  padding: 31px 10px 52px;
+  padding: 31px 0 52px;
 
   @media ${device.mobile} {
     width: 100%;

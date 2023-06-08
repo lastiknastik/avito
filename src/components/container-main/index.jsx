@@ -1,5 +1,5 @@
 import * as S from "./style";
-import HeaderTitle from "../header-title";
+import HeaderTitle from "../font-styles/header-title";
 import Goods from "../goods";
 
 export default function ContainerMain(props) {

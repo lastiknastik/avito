@@ -1,5 +1,5 @@
 import * as S from "./style";
-import HeaderSubtitle from "../../components/header-subtitle";
+import HeaderSubtitle from "../../components/font-styles/header-subtitle";
 import FormFieldWithLabel from "../../components/form-field-with-label";
 import ButtonMain from "../../components/button-main";
 
