@@ -9,7 +9,7 @@ import ArticleCard from "../../components/article-card";
 
 import HeaderMain from "../../components/header-main";
 
-export default function Article() {
+export default function Adv() {
   return (
     <React.Fragment>
       <Header>
