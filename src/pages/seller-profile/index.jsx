@@ -45,7 +45,7 @@ export default function Profile() {
                     </ParagraphInfo>
                     <S.SellerImgMobileWrapper>
                       <S.SellerImgMobileContent>
-                        <a href="#" target="_self" alt="seller-mobile">
+                        <a href="/" target="_self" alt="seller-mobile">
                           <img src="#" alt="" />
                         </a>
                       </S.SellerImgMobileContent>
