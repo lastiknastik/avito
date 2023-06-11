@@ -8,10 +8,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   align-items: flex-start;
   width: 600px;
-  height: auto;
-  padding: 32px 50px 42px;
   background-color: #ffffff;
-  position: relative;
 
   @media ${device.mobile} {
     width: 100%;
@@ -43,7 +40,7 @@ export const FormModal = styled.form`
   }
 `;
 
-const formControlStyle = css`
+export const formControlStyle = css`
   padding: 13px 19px;
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -52,7 +49,7 @@ const formControlStyle = css`
   line-height: 1;
 `;
 
-const formControlStyleMobile = css`
+export const formControlStyleMobile = css`
   padding: 9px 17px;
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -73,27 +70,6 @@ export const FormInput = styled.input`
 
   @media ${device.mobile} {
     width: 100%;
-  }
-`;
-
-export const FormTextArea = styled.textarea`
-  ${formControlStyle}
-  font-family: 'Roboto', sans-serif;
-  width: 100%;
-  max-height: 200px;
-  font-size: 16px;
-  line-height: 24px;
-  resize: none;
-
-  ::placeholder {
-    ${placeholder}
-  }
-
-  @media ${device.mobile} {
-    ${formControlStyleMobile}
-    font-family: 'Roboto', sans-serif;
-    width: 100%;
-    max-height: 107px;
   }
 `;
 

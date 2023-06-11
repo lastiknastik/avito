@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { device } from "../../constants";
 import { FormModal } from "../../pages/new-adv/style";
 import { SettingsRight } from "../../pages/seller-profile/style";
+import { Content } from "../../pages/reviews/style";
 
 export const ButtonMain = styled.button`
   height: 50px;
@@ -18,7 +19,7 @@ export const ButtonMain = styled.button`
     background-color: #0080c1;
   }
 
-  ${FormModal} & {
+  ${FormModal} &, ${Content} & {
     width: fit-content;
   }
 

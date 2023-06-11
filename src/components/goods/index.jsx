@@ -20,7 +20,6 @@ const goods = [
 ];
 
 function Card(props) {
-  console.log("card props", props);
   return (
     <S.CardItem>
       <S.Card>
@@ -44,20 +43,20 @@ function Card(props) {
 
 export default function Goods(props) {
   return (
-      <S.MainContent>
-        <S.ContentCards>
-          {goods.map((g) => {
-            return (
-              <Card
-                key={g.id}
-                title={g.title}
-                price={g.price}
-                place={g.place}
-                date={g.date}
-              ></Card>
-            );
-          })}
-        </S.ContentCards>
-      </S.MainContent>
+    <S.MainContent>
+      <S.ContentCards>
+        {goods.map((g) => {
+          return (
+            <Card
+              key={g.id}
+              title={g.title}
+              price={g.price}
+              place={g.place}
+              date={g.date}
+            ></Card>
+          );
+        })}
+      </S.ContentCards>
+    </S.MainContent>
   );
 }

@@ -2,34 +2,13 @@ import * as S from "./style";
 import HeaderSubtitle from "../../components/font-styles/header-subtitle";
 import FormFieldWithLabel from "../../components/form-field-with-label";
 import ButtonMain from "../../components/button-main";
+import TextAreaWithLabel from "../../components/controls/textarea-with-label";
 
 function InputFieldWithLabel({ placeholder, name, id, type = "text", label }) {
   return (
     <FormFieldWithLabel>
       <label htmlFor={name}>{label}</label>
       <S.FormInput placeholder={placeholder} name={name} id={id} type={type} />
-    </FormFieldWithLabel>
-  );
-}
-
-function TextAreaFieldWithLabel({
-  placeholder,
-  name,
-  id,
-  label,
-  rows = 1,
-  cols = "auto",
-}) {
-  return (
-    <FormFieldWithLabel>
-      <label htmlFor={name}>{label}</label>
-      <S.FormTextArea
-        placeholder={placeholder}
-        name={name}
-        id={id}
-        rows={rows}
-        cols={cols}
-      />
     </FormFieldWithLabel>
   );
 }
@@ -73,7 +52,7 @@ export default function NewAdv({ children }) {
           id="adv-name"
           label="Название"
         />
-        <TextAreaFieldWithLabel
+        <TextAreaWithLabel
           placeholder="Введите описание"
           name="adv-description"
           id="adv-description"
