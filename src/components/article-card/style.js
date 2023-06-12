@@ -20,26 +20,13 @@ export const Content = styled.div`
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: top;
-  -ms-flex-align: top;
   align-items: top;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
 
   @media ${device.tablet} {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
     flex-direction: column;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
     justify-content: center;
   }
 `;
@@ -60,12 +47,7 @@ export const ContentLeft = styled.div`
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
     flex-direction: column;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
     margin-right: 0;
     margin-bottom: 20px;
@@ -82,30 +64,16 @@ export const ArticleImgWrapper = styled.div`
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
 
   @media ${device.tablet} {
     max-width: 100%;
     width: 100%;
     overflow: hidden;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
     flex-direction: column;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
     justify-content: center;
     position: relative;
 
@@ -117,7 +85,6 @@ export const ArticleImgWrapper = styled.div`
       background-color: transparent;
       border-top: 2px solid #000000;
       border-left: 2px solid #000000;
-      -webkit-transform: rotate(-45deg);
       transform: rotate(-45deg);
       position: absolute;
       top: 24px;
@@ -156,15 +123,8 @@ export const ArticleImgBar = styled.div`
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: left;
-  -ms-flex-pack: left;
   justify-content: left;
   overflow: hidden;
   margin-left: -5px;
@@ -204,8 +164,6 @@ export const ArticleImgBarMob = styled.div`
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
     justify-content: space-between;
   }
 `;
@@ -237,9 +195,6 @@ export const ArticleInfoWrapper = styled.div`
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
   flex-direction: column;
 `;
 
@@ -293,6 +248,7 @@ export const ArticleInfoPrice = styled.p`
   }
 `;
 
+/*
 export const ArticleActionBtn = styled.button`
   background-color: #009ee4;
   border-radius: 6px;
@@ -328,19 +284,23 @@ export const ArticleActionBtn = styled.button`
     }
   }
 `;
+*/
+
+export const ArticleActionsWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+
+  @media ${device.mobile} {
+    flex-direction: column;
+  }
+`;
 
 export const ArticleAuthor = styled.div`
   margin-top: 34px;
   margin-bottom: 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-box-align: start;
-  -ms-flex-align: start;
   align-items: flex-start;
 
   @media ${device.tablet} {
@@ -359,7 +319,6 @@ export const AuthorImg = styled.div`
     width: 100%;
     height: auto;
     display: block;
-    -o-object-fit: cover;
     object-fit: cover;
   }
 `;
@@ -386,7 +345,7 @@ export const AuthorAbout = styled.p`
   line-height: 32px;
   color: #5f5f5f;
 
-  @meia ${device.tablet} {
+  @media ${device.tablet} {
     font-size: 14px;
     line-height: 28px;
   }

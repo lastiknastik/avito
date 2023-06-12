@@ -1,14 +1,13 @@
-import React from "react";
+import * as S from "./style";
 import Header from "../../components/header";
-import Footer from "../../components/footer";
+import React from "react";
+import HeaderMain from "../../components/header-main";
 import Logo from "../../components/logo";
 import FormMenu from "../../components/form-menu";
 import ButtonMain from "../../components/button-main";
 import ArticleCard from "../../components/article-card";
 
-import HeaderMain from "../../components/header-main";
-
-export default function Adv() {
+export default function MyAdv(props) {
   return (
     <React.Fragment>
       <Header />
@@ -21,7 +20,6 @@ export default function Adv() {
         </HeaderMain>
         <ArticleCard />
       </main>
-      <Footer />
     </React.Fragment>
   );
 }

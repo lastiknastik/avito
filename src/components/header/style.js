@@ -13,13 +13,7 @@ export const HeaderNav = styled.nav`
   margin: 0 auto;
   padding: 0 10px;
   height: 79px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: end;
-  -ms-flex-pack: end;
   justify-content: end;
 `;

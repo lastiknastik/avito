@@ -1,6 +1,5 @@
 import React from "react";
 import Header from "../../components/header";
-import ButtonHeader from "../../components/button-header";
 import Footer from "../../components/footer";
 import * as S from "./style";
 import Logo from "../../components/logo";
@@ -17,10 +16,7 @@ import ParagraphInfo from "../../components/font-styles/paragraph-info";
 export default function Profile() {
   return (
     <React.Fragment>
-      <Header>
-        <ButtonHeader>{"Разместить объявление"}</ButtonHeader>
-        <ButtonHeader marginLeft={"10px"}>{"Личный кабинет"}</ButtonHeader>
-      </Header>
+      <Header />
       <main className="main">
         <S.MainContainer>
           <S.MainCenterBlock>

@@ -1,6 +1,7 @@
 import * as S from "./style";
 import HeaderSubtitle from "../font-styles/header-subtitle";
 import React from "react";
+import ButtonMain from "../button-main";
 
 function ImgBarItem() {
   return (
@@ -11,6 +12,7 @@ function ImgBarItem() {
 }
 
 export default function ArticleCard({ children, articleId }) {
+  const isMyAdv = true; //TODO: check currentUserId === articleAuthorId ? true : false
   //TODO:
   const article = { id: articleId, imgSrc: "imgSrc" };
 
@@ -30,7 +32,7 @@ export default function ArticleCard({ children, articleId }) {
                 <ImgBarItem />
               </S.ArticleImgBar>
               <S.ArticleImgBarMob>
-                {/* TODO: add circle-active */}
+                {/* TODO: mark one of them active - REDUX */}
                 <S.ArticleImgBarItemCircle />
                 <S.ArticleImgBarItemCircle />
                 <S.ArticleImgBarItemCircle />
@@ -51,10 +53,19 @@ export default function ArticleCard({ children, articleId }) {
                 </S.ArticleInfoLink>
               </S.ArticleInfo>
               <S.ArticleInfoPrice>2 200 ₽</S.ArticleInfoPrice>
-              <S.ArticleActionBtn>
-                Показать телефон
-                <span>8 905 ХХХ ХХ ХХ</span>
-              </S.ArticleActionBtn>
+              <S.ArticleActionsWrapper>
+                {isMyAdv ? (
+                  <React.Fragment>
+                    <ButtonMain>Редактировать</ButtonMain>
+                    <ButtonMain>Снять с публикации</ButtonMain>
+                  </React.Fragment>
+                ) : (
+                  <ButtonMain>
+                    Показать телефон
+                    <span>8 905 ХХХ ХХ ХХ</span>
+                  </ButtonMain>
+                )}
+              </S.ArticleActionsWrapper>
               <S.ArticleAuthor>
                 <S.AuthorImg>
                   <img src="" alt="" />

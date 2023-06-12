@@ -1,9 +1,26 @@
 import * as S from "./style";
-import ButtonHeader from "../button-header";
+import ButtonHeader from "../../components/button-header";
+import React from "react";
+
 export default function Header(props) {
+  const isLoggedIn = true; //TODO: substitute with real data
+
   return (
-    <S.Header>
-      <S.HeaderNav>{props.children}</S.HeaderNav>
-    </S.Header>
+    <React.Fragment>
+      <S.Header>
+        <S.HeaderNav>
+          {isLoggedIn ? (
+            <React.Fragment>
+              <ButtonHeader>{"Разместить объявление"}</ButtonHeader>
+              <ButtonHeader marginLeft={"10px"}>
+                {"Личный кабинет"}
+              </ButtonHeader>
+            </React.Fragment>
+          ) : (
+            <ButtonHeader>{"Вход в личный кабинет"}</ButtonHeader>
+          )}
+        </S.HeaderNav>
+      </S.Header>
+    </React.Fragment>
   );
 }
