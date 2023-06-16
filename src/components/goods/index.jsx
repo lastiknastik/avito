@@ -22,7 +22,7 @@ function Card(props) {
       <S.Card>
         <S.CardImg>
           <a href="#" target="_blank">
-            <img src={props.imgSrc} alt="picture" />
+            <img src={props.imgSrc} alt="goods" />
           </a>
         </S.CardImg>
         <div>
