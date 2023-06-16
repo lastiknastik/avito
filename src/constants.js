@@ -9,3 +9,5 @@ export const device = {
   tablet: `(max-width: ${size.tablet})`,
   laptop: `(max-width: ${size.laptop})`,
 };
+
+export const SKYVITO_API_BASE_URL = "http://localhost:8090/";

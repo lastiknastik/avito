@@ -20,6 +20,7 @@ export default function Main() {
             <S.ButtonSearch>Найти</S.ButtonSearch>
           </FormMenu>
         </HeaderMain>
+        {/* TODO: get rid of ContainerMain: move it to local styled components */}
         <ContainerMain />
       </main>
       <Footer></Footer>

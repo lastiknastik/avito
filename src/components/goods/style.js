@@ -141,7 +141,7 @@ export const CardImg = styled.div`
 `;
 
 export const CardTitle = styled.h3`
-  height: 52px;
+  max-height: 52px;
   font-size: 22px;
   font-weight: 500;
   line-height: 26px;

@@ -9,19 +9,27 @@ import NewAdv from "./pages/new-adv";
 import SellerProfile from "./pages/seller-profile";
 import Reviews from "./pages/reviews";
 import MyAdv from "./pages/my-adv";
+//import { ProtectedRoute } from './comps/protected-route'
+import { ProtectedRoute } from "./components/protected-route";
 
 export default function AppRoutes() {
+  let isAllowed = false;
+
   return (
     <Routes>
       <Route path="/" element={<Main />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/adv" element={<Adv />} />
       <Route path="/signin" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
-      <Route path="/new-adv" element={<NewAdv />} />
-      <Route path="/seller-profile" element={<SellerProfile />} />
-      <Route path="/reviews" element={<Reviews />} />
-      <Route path="/my-adv" element={<MyAdv />} />
+      <Route element={<ProtectedRoute isAllowed={isAllowed} />}>
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/adv" element={<Adv />} />
+        <Route path="/new-adv" element={<NewAdv />} />
+        <Route path="/seller-profile" element={<SellerProfile />} />
+        <Route path="/reviews" element={<Reviews />} />
+        <Route path="/my-adv" element={<MyAdv />} />
+        {/* use same page with different parameters */}
+        <Route path="/edit-adv" element={<NewAdv />} />
+      </Route>
     </Routes>
   );
 }

@@ -5,8 +5,15 @@ import AuthWrapper from "../../components/modal/auth-wrapper";
 import LayoutStack from "../../components/layouts/stack";
 
 export default function SignIn() {
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log("submitter", e.submitter);
+    console.log("on submit", e);
+  };
+
   return (
-    <AuthWrapper>
+    <AuthWrapper onSubmit={handleOnSubmit}>
       <LayoutStack>
         <InputModal
           type="text"
