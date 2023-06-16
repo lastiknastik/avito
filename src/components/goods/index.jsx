@@ -1,25 +1,6 @@
 import * as S from "./style";
 import { SKYVITO_API_BASE_URL } from "../../constants";
 
-const goods = [
-  {
-    title: "Ракетка для большого тенниса Triumph Pro ST",
-    price: "2 200 ₽",
-    place: "Санкт Петербург",
-    date: "Сегодня в 10:45",
-    img: "",
-    id: "1",
-  },
-  {
-    title: "Ракетка для большого тенниса Triumph Pro ST",
-    price: "2 200 ₽",
-    place: "Санкт Петербург",
-    date: "Сегодня в 10:45",
-    img: "",
-    id: "2",
-  },
-];
-
 const monthNames = [
   "Января",
   "Февраля",
@@ -58,8 +39,6 @@ function Card(props) {
 }
 
 export default function Goods({ goods = [] }) {
-  console.log("ads data", goods);
-
   return (
     <S.MainContent>
       <S.ContentCards>
