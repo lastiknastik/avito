@@ -1,5 +1,5 @@
 import * as S from "./style";
 
-export default function FormMenu(props) {
-  return <S.FormMenu>{props.children}</S.FormMenu>;
+export default function FormMenu({ children, onSubmit }) {
+  return <S.FormMenu onSubmit={onSubmit}>{children}</S.FormMenu>;
 }

@@ -4,7 +4,7 @@ import skyvito from "./reducers/skyvito";
 
 export const store = configureStore({
   reducer: {
-    gitHubUsersRedux: skyvito,
+    skyvitoRedux: skyvito,
     [skyvitoApi.reducerPath]: skyvitoApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

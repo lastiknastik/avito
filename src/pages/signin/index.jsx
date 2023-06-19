@@ -8,8 +8,6 @@ export default function SignIn() {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log("submitter", e.submitter);
-    console.log("on submit", e);
   };
 
   return (

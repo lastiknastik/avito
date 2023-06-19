@@ -1,1 +1,7 @@
-const skyvitoSelector = (store) => store.skyvitoRedux;
+const skyvitoSelector = (store) => {
+  return store.skyvitoRedux;
+};
+
+export const mainGoodsSearchFilter = (store) => {
+  return skyvitoSelector(store)?.mainGoodsSearchFilter || "";
+};
