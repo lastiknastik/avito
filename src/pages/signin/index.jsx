@@ -3,15 +3,22 @@ import ButtonMainModal from "../../components/modal/button-main";
 import ButtonSecondaryModal from "../../components/modal/button-secondary";
 import AuthWrapper from "../../components/modal/auth-wrapper";
 import LayoutStack from "../../components/layouts/stack";
+import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
-  const handleOnSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const signInFormOnSubmitHandler = (e) => {
     e.preventDefault();
     e.stopPropagation();
   };
 
+  const onSignUpButtonnClickHandler = (e) => {
+    navigate("/signup");
+  };
+
   return (
-    <AuthWrapper onSubmit={handleOnSubmit}>
+    <AuthWrapper onSubmit={signInFormOnSubmitHandler}>
       <LayoutStack>
         <InputModal
           type="text"
@@ -27,7 +34,9 @@ export default function SignIn() {
         />
       </LayoutStack>
       <ButtonMainModal>{"Войти"}</ButtonMainModal>
-      <ButtonSecondaryModal>{"Зарегистрироваться"}</ButtonSecondaryModal>
+      <ButtonSecondaryModal onClick={onSignUpButtonnClickHandler}>
+        {"Зарегистрироваться"}
+      </ButtonSecondaryModal>
     </AuthWrapper>
   );
 }

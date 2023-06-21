@@ -9,11 +9,21 @@ import NewAdv from "./pages/new-adv";
 import SellerProfile from "./pages/seller-profile";
 import Reviews from "./pages/reviews";
 import MyAdv from "./pages/my-adv";
-//import { ProtectedRoute } from './comps/protected-route'
 import { ProtectedRoute } from "./components/protected-route";
+import { useSelector } from "react-redux";
+import { accessToken } from "./store/selectors/selectors";
+import { ACCESS_TOKEN_TIMEOUT } from "./constants";
 
 export default function AppRoutes() {
-  let isAllowed = false;
+  const accessTokenObj = useSelector(accessToken);
+  console.log("access token", accessTokenObj);
+
+  /* access token lives for ACCESS_TOKEN_TIMEOUT.
+  user most likely has access if access token is fresh */
+  //TODO: controversal way to check accessability
+  const isAllowed =
+    accessTokenObj &&
+    (Date.now() - accessTokenObj.timestamp) / 1000 / 60 < ACCESS_TOKEN_TIMEOUT;
 
   return (
     <Routes>

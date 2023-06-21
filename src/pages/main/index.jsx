@@ -23,7 +23,6 @@ export default function Main() {
 
   const goodsSearchInputOnKeyDownHandler = (e) => {
     if (e.keyCode === 13) {
-      console.log("enter");
       dispathSetMainGoodsSearchFilter(e.target.value);
       e.target.blur();
     }

@@ -1,7 +1,5 @@
 import * as S from "./style";
 import React from "react";
-import { useSelector } from "react-redux";
-import { mainGoodsSearchFilter } from "../../store/selectors/selectors";
 
 export default function InputMain({ placeholder, onBlur, onKeyDown }) {
   return (

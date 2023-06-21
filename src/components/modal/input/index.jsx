@@ -7,6 +7,7 @@ export default function InputModal({
   placeholder,
   children,
   className,
+  required,
 }) {
   return (
     <S.InputModal
@@ -15,6 +16,7 @@ export default function InputModal({
       id={id}
       placeholder={placeholder}
       className={className}
+      required={required}
     >
       {children}
     </S.InputModal>

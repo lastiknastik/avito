@@ -11,3 +11,5 @@ export const device = {
 };
 
 export const SKYVITO_API_BASE_URL = "http://localhost:8090/";
+
+export const ACCESS_TOKEN_TIMEOUT = 5; //in minutes
