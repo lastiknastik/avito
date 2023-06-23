@@ -10,13 +10,11 @@ import SellerProfile from "./pages/seller-profile";
 import Reviews from "./pages/reviews";
 import MyAdv from "./pages/my-adv";
 import { ProtectedRoute } from "./components/protected-route";
-import { useSelector } from "react-redux";
-import { accessToken } from "./store/selectors/selectors";
 import { ACCESS_TOKEN_TIMEOUT } from "./constants";
+import { getAccessToken } from "./libs/auth";
 
 export default function AppRoutes() {
-  const accessTokenObj = useSelector(accessToken);
-  console.log("access token", accessTokenObj);
+  const accessTokenObj = getAccessToken();
 
   /* access token lives for ACCESS_TOKEN_TIMEOUT.
   user most likely has access if access token is fresh */

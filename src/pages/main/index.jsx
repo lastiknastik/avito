@@ -18,6 +18,7 @@ export default function Main() {
   };
 
   const goodsSearchInputOnBlurHandle = (e) => {
+    //TODO: deprecate this approach
     dispathSetMainGoodsSearchFilter(e.target.value);
   };
 

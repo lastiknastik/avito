@@ -6,13 +6,10 @@ import {
   usePostAuthRegisterMutation,
   usePostAuthLoginMutation,
 } from "../../services/skyvitoSrvcAPI";
-import { useDispatch } from "react-redux";
-import { setAccessToken } from "../../store/actions/creators/creators";
-import { setRefreshToken } from "../../store/actions/creators/creators";
 import { useNavigate } from "react-router-dom";
+import { setAccessToken, setRefreshToken } from "../../libs/auth";
 
 export default function SignUp() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [signUp, signUpResponse] = usePostAuthRegisterMutation();
@@ -33,24 +30,20 @@ export default function SignUp() {
       }
     }
 
-    console.log("form data", formData);
     signUp(formData)
       .unwrap()
       .then((payload) => {
-        console.log("payload", payload);
         signIn({ email: formData.email, password: formData.password })
           .unwrap()
           .then((payload) => {
-            console.log("sign in payload", payload);
-            dispatch(setAccessToken(payload.access_token)); //set access token
-            dispatch(setRefreshToken(payload.refresh_token)); //set refresh token
-            navigate("/profile"); //everything is good, redirect to profile page. TODO: implement redirectURL feature
+            setAccessToken(payload.access_token); //set access token
+            setRefreshToken(payload.refresh_token); //set refresh token
+
+            navigate("/profile"); //if everything is good, redirect to profile page. TODO: implement redirectURL feature
           })
-          .catch((error) => console.log("error", error));
-        //TODO: request login
-        //TODO: store tokens
+          .catch((error) => console.error("rejected", error));
       })
-      .catch((error) => console.log("rejected", error));
+      .catch((error) => console.error("rejected", error));
   };
 
   return (

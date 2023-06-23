@@ -11,16 +11,6 @@ export default function skyvito(state = initialState, action) {
         ...state,
         mainGoodsSearchFilter: action.payload,
       };
-    case Types.ACCESS_TOKEN:
-      return {
-        ...state,
-        access_token: action.payload,
-      };
-    case Types.REFRESH_TOKEN:
-      return {
-        ...state,
-        refresh_token: action.payload,
-      };
     default:
       return state;
   }

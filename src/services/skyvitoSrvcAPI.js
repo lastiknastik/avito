@@ -40,6 +40,19 @@ export const skyvitoApi = createApi({
       },
       providesTags: [{ type: "GetAds" }],
     }),
+    getUser: builder.query({
+      query: ({ accessToken }) => {
+        return {
+          url: "user",
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        };
+      },
+      providesTags: [{ type: "GetUser" }],
+    }),
     postAuthLogin: builder.mutation({
       query: ({ email, password }) => {
         return {
@@ -94,4 +107,5 @@ export const {
   useGetAdsQuery,
   usePostAuthLoginMutation,
   usePostAuthRegisterMutation,
+  useGetUserQuery,
 } = skyvitoApi;
