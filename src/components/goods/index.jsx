@@ -41,61 +41,65 @@ function Card(props) {
 export default function Goods({ goods = [] }) {
   return (
     <S.MainContent>
-      <S.ContentCards>
-        {goods.map((g) => {
-          let date = "";
-          const createdOn = new Date(g.created_on);
-          const today = new Date();
+      {goods.length > 0 ? (
+        <S.ContentCards>
+          {goods.map((g) => {
+            let date = "";
+            const createdOn = new Date(g.created_on);
+            const today = new Date();
 
-          //display as dd MMMM hh:mm for current year, Yesterday, Today otherwise dd.mm.yyyy hh:mm
-          if (createdOn.getFullYear() === today.getFullYear()) {
-            if (createdOn.getMonth() === today.getMonth()) {
-              if (createdOn.getDate() === today.getDate()) {
-                date = "Сегодня";
-              } else if (createdOn.getDate() - today.getDate() === 1) {
-                date = "Вчера";
+            //display as dd MMMM hh:mm for current year, Yesterday, Today otherwise dd.mm.yyyy hh:mm
+            if (createdOn.getFullYear() === today.getFullYear()) {
+              if (createdOn.getMonth() === today.getMonth()) {
+                if (createdOn.getDate() === today.getDate()) {
+                  date = "Сегодня";
+                } else if (createdOn.getDate() - today.getDate() === 1) {
+                  date = "Вчера";
+                } else {
+                  date = `${createdOn.getDate()} ${
+                    monthNames[createdOn.getMonth()]
+                  }`;
+                }
               } else {
                 date = `${createdOn.getDate()} ${
                   monthNames[createdOn.getMonth()]
                 }`;
               }
             } else {
-              date = `${createdOn.getDate()} ${
-                monthNames[createdOn.getMonth()]
-              }`;
+              date = createdOn.toLocaleDateString("ru-RU");
             }
-          } else {
-            date = createdOn.toLocaleDateString("ru-RU");
-          }
 
-          date += ` ${createdOn
-            .getHours()
-            .toString()
-            .padStart(2, "0")}:${createdOn
-            .getMinutes()
-            .toString()
-            .padStart(2, "0")}`;
+            date += ` ${createdOn
+              .getHours()
+              .toString()
+              .padStart(2, "0")}:${createdOn
+              .getMinutes()
+              .toString()
+              .padStart(2, "0")}`;
 
-          return (
-            <Card
-              key={g.id}
-              title={g.title}
-              price={g.price.toLocaleString("ru-RU", {
-                minimumFractionDigits: 0,
-                style: "currency",
-                currency: "RUB",
-              })}
-              place={g.user?.city}
-              date={date}
-              imgSrc={
-                g.images.length > 0
-                  ? SKYVITO_API_BASE_URL + g.images[0].url
-                  : "../no-image.png"
-              }
-            ></Card>
-          );
-        })}
-      </S.ContentCards>
+            return (
+              <Card
+                key={g.id}
+                title={g.title}
+                price={g.price.toLocaleString("ru-RU", {
+                  minimumFractionDigits: 0,
+                  style: "currency",
+                  currency: "RUB",
+                })}
+                place={g.user?.city}
+                date={date}
+                imgSrc={
+                  g.images.length > 0
+                    ? SKYVITO_API_BASE_URL + g.images[0].url
+                    : "../no-image.png"
+                }
+              ></Card>
+            );
+          })}
+        </S.ContentCards>
+      ) : (
+        <p>No ads to display{/* TODO: implement empty results section */}</p>
+      )}
     </S.MainContent>
   );
 }

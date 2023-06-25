@@ -13,6 +13,7 @@ export const ProfileImg = styled.div`
     display: block;
     -o-object-fit: cover;
     object-fit: cover;
+    border-radius: 50%;
   }
 
   @media ${device.mobile} {

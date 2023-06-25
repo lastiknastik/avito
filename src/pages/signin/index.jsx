@@ -38,12 +38,16 @@ export default function SignIn() {
         setAccessToken(payload.access_token); //set access token
         setRefreshToken(payload.refresh_token); //set refresh token
 
+        console.log("before redirect");
         navigate("/profile"); //if everything is good, redirect to profile page. TODO: implement redirectURL feature
       })
       .catch((error) => console.error("rejected", error));
   };
 
   const onSignUpButtonnClickHandler = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     navigate("/signup");
   };
 
