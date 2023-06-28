@@ -19,14 +19,18 @@ import { useState } from "react";
 function ProfileContent({ data }) {
   const formId = "profile_form";
   //set default value for avatar src
-  const [avatarSrc, setAvatarSrc] = useState(
-    data.avatar ? `${SKYVITO_API_BASE_URL}${data.avatar}` : null
-  );
+  const [avatarSrc, setAvatarSrc] = useState({
+    value: "",
+    src: data.avatar ? `${SKYVITO_API_BASE_URL}${data.avatar}` : null,
+  });
 
   //display preview of selected image
   const onAvatarValueChangeHandler = (e) => {
     if (e.target.files && e.target.files[0]) {
-      setAvatarSrc(URL.createObjectURL(e.target.files[0]));
+      setAvatarSrc({
+        value: e.target.value,
+        src: URL.createObjectURL(e.target.files[0]),
+      });
     }
   };
 
@@ -57,7 +61,7 @@ function ProfileContent({ data }) {
           changedSettings: changedProfileSettings.changedSettings,
         });
       }
-    } else {
+    } else if (target.name !== "avatar") {
       const index = changedProfileSettings.changedSettings.indexOf(target.name);
 
       if (index > -1) {
@@ -79,25 +83,24 @@ function ProfileContent({ data }) {
 
     const formElements = e.nativeEvent.srcElement;
     const userUpdatedAttrs = {};
-    let newAvatarSrc = "";
 
     for (const el of formElements) {
       /* filters only changed attributes */
       if (el.tagName === "INPUT") {
-        if (el.name === "avatar") {
-          if (el.value !== "") newAvatarSrc = el.value;
-        } else if (el.name !== el.dataset.initValue) {
+        if (el.name !== "avatar" && el.value !== el.dataset.initValue) {
           userUpdatedAttrs[el.name] = el.value;
         }
       }
     }
 
-    if (newAvatarSrc) {
+    if (avatarSrc.value) {
       //POST /user/avatar
+      console.log("POST avatar", avatarSrc.value);
     }
 
     if (Object.keys(userUpdatedAttrs).length) {
       //PATCH /user
+      console.log("PATCH user", userUpdatedAttrs);
     }
   };
 
@@ -111,7 +114,7 @@ function ProfileContent({ data }) {
           <HeaderSubtitle>Настройки профиля</HeaderSubtitle>
           <S.ProfileSettings onChange={onProfileSettingsChangeHandler}>
             <S.SettingsLeft>
-              <ProfileImg src={avatarSrc} />
+              <ProfileImg src={avatarSrc.src} />
               <ActionInput
                 value=""
                 type="file"

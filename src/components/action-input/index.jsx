@@ -13,6 +13,8 @@ export default function ActionInput({
   const inputRef = useRef(null);
 
   const onLabelClickHandler = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     inputRef.current.click();
   };
 
