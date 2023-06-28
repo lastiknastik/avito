@@ -8,6 +8,7 @@ export default function ActionInput({
   name,
   label,
   onChange,
+  form,
 }) {
   const inputRef = useRef(null);
 
@@ -27,6 +28,8 @@ export default function ActionInput({
         name={name}
         ref={inputRef}
         onChange={onChange}
+        form={form}
+        id={name}
       />
     </S.ActionInput>
   );

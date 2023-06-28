@@ -7,16 +7,19 @@ export default function InputWithLabel({
   name,
   placeholder,
   defaultValue,
+  initValue,
 }) {
   return (
     <S.Wrapper className={className}>
-      <label>{label}</label>
-      <input
+      <S.Label htmlFor={name}>{label}</S.Label>
+      <S.Input
         name={name}
         type="text"
         placeholder={placeholder}
         defaultValue={defaultValue}
-      ></input>
+        id={name}
+        data-init-value={initValue || ""}
+      ></S.Input>
     </S.Wrapper>
   );
 }

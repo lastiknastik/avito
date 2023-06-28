@@ -6,7 +6,6 @@ import FormMenu from "../../components/form-menu";
 import HeaderTitle from "../../components/font-styles/header-title";
 import HeaderSubtitle from "../../components/font-styles/header-subtitle";
 import ProfileImg from "../../components/profile-img";
-//import ActionLink from "../../components/action-link";
 import ButtonMain from "../../components/button-main";
 import Goods from "../../components/goods";
 import HeaderMain from "../../components/header-main";
@@ -18,6 +17,7 @@ import { SKYVITO_API_BASE_URL } from "../../constants";
 import { useState } from "react";
 
 function ProfileContent({ data }) {
+  const formId = "profile_form";
   //set default value for avatar src
   const [avatarSrc, setAvatarSrc] = useState(
     data.avatar ? `${SKYVITO_API_BASE_URL}${data.avatar}` : null
@@ -30,6 +30,77 @@ function ProfileContent({ data }) {
     }
   };
 
+  const [changedProfileSettings, setChangedProfileSettings] = useState({
+    isChanged: false,
+    changedSettings: [],
+  });
+
+  const onProfileSettingsChangeHandler = (e) => {
+    const target = e.target;
+
+    if (target.tagName !== "INPUT") return;
+
+    /* for avatar field only value is important because there is no functionality
+    to reverse changed avatar */
+    if (
+      (target.name !== "avatar" && target.value !== target.dataset.initValue) ||
+      (target.name === "avatar" && target.value)
+    ) {
+      /* push input name to the list of changed attributes if it wasn't pushed before */
+      if (changedProfileSettings.changedSettings.indexOf(target.name) < 0) {
+        changedProfileSettings.changedSettings.push(target.name);
+        changedProfileSettings.isChanged =
+          changedProfileSettings.changedSettings.length > 0;
+
+        setChangedProfileSettings({
+          isChanged: changedProfileSettings.isChanged,
+          changedSettings: changedProfileSettings.changedSettings,
+        });
+      }
+    } else {
+      const index = changedProfileSettings.changedSettings.indexOf(target.name);
+
+      if (index > -1) {
+        changedProfileSettings.changedSettings.splice(index, 1);
+        changedProfileSettings.isChanged =
+          changedProfileSettings.changedSettings.length > 0;
+
+        setChangedProfileSettings({
+          isChanged: changedProfileSettings.isChanged,
+          changedSettings: changedProfileSettings.changedSettings,
+        });
+      }
+    }
+  };
+
+  const onFormSubmitHandler = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const formElements = e.nativeEvent.srcElement;
+    const userUpdatedAttrs = {};
+    let newAvatarSrc = "";
+
+    for (const el of formElements) {
+      /* filters only changed attributes */
+      if (el.tagName === "INPUT") {
+        if (el.name === "avatar") {
+          if (el.value !== "") newAvatarSrc = el.value;
+        } else if (el.name !== el.dataset.initValue) {
+          userUpdatedAttrs[el.name] = el.value;
+        }
+      }
+    }
+
+    if (newAvatarSrc) {
+      //POST /user/avatar
+    }
+
+    if (Object.keys(userUpdatedAttrs).length) {
+      //PATCH /user
+    }
+  };
+
   return (
     <React.Fragment>
       <HeaderTitle>{`Здравствуйте${
@@ -38,7 +109,7 @@ function ProfileContent({ data }) {
       <S.MainProfile>
         <S.ProfileContent>
           <HeaderSubtitle>Настройки профиля</HeaderSubtitle>
-          <S.ProfileSettings>
+          <S.ProfileSettings onChange={onProfileSettingsChangeHandler}>
             <S.SettingsLeft>
               <ProfileImg src={avatarSrc} />
               <ActionInput
@@ -48,32 +119,41 @@ function ProfileContent({ data }) {
                 name="avatar"
                 label="Заменить"
                 onChange={onAvatarValueChangeHandler}
+                form={formId}
               />
-              {/*<ActionLink>{"Заменить"}</ActionLink>*/}
             </S.SettingsLeft>
             <S.SettingsRight>
-              <S.SettingsForm>
+              <S.SettingsForm id={formId} onSubmit={onFormSubmitHandler}>
                 <S.InputWithLabelShort
                   label="Имя"
                   defaultValue={data.name}
                   name="name"
+                  initValue={data.name}
                 />
                 <S.InputWithLabelShort
                   label="Фамилия"
                   defaultValue={data.surname}
                   name="surname"
+                  initValue={data.surname}
                 />
                 <S.InputWithLabelShort
                   label="Город"
                   defaultValue={data.city}
                   name="city"
+                  initValue={data.city}
                 />
                 <S.InputWithLabelLong
                   label="Телефон"
                   defaultValue={data.phone}
                   name="phone"
+                  initValue={data.phone}
                 />
-                <S.ProfileSaveBtn>Сохранить</S.ProfileSaveBtn>
+                <S.ProfileSaveBtn
+                  type="submit"
+                  disabled={changedProfileSettings.isChanged ? 0 : 1}
+                >
+                  Сохранить
+                </S.ProfileSaveBtn>
               </S.SettingsForm>
             </S.SettingsRight>
           </S.ProfileSettings>
@@ -90,8 +170,6 @@ export default function Profile() {
     { accessToken: accessTokenObj.value },
     { skip: false }
   );
-
-  console.log("user object", data);
 
   return (
     <React.Fragment>

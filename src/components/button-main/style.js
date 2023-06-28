@@ -1,13 +1,11 @@
 import styled from "styled-components";
 import { device } from "../../constants";
-import { FormModal } from "../../pages/new-adv/style";
 import { SettingsRight } from "../../pages/seller-profile/style";
-import { Content } from "../../pages/reviews/style";
 import { ArticleActionsWrapper } from "../article-card/style";
 
 export const ButtonMain = styled.button`
   background-color: #009ee4;
-  border: 1px solid #009ee4;
+  border: 1px solid transparent;
   border-radius: 6px;
   font-size: 16px;
   line-height: 24px;
@@ -19,11 +17,9 @@ export const ButtonMain = styled.button`
     background-color: #0080c1;
   }
 
-  /*
-  ${FormModal} &, ${Content} & {
-    width: fit-content;
+  &:disabled {
+    background: #d9d9d9;
   }
-  */
 
   ${SettingsRight} & span {
     display: block;

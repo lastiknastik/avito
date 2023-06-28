@@ -49,14 +49,8 @@ export const ProfileContent = styled.div`
 `;
 
 export const ProfileSettings = styled.div`
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: top;
-  -ms-flex-align: top;
   align-items: top;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
 
   @media ${device.tablet} {
@@ -66,28 +60,14 @@ export const ProfileSettings = styled.div`
 `;
 
 export const SettingsLeft = styled.div`
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   margin-right: 43px;
 
   @media ${device.mobile} {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
     flex-direction: column;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
     margin-right: 0;
   }
@@ -102,67 +82,13 @@ export const SettingsRight = styled.div`
 
 export const SettingsForm = styled.form`
   width: 630px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-
-  & input {
-    background-color: #ffffff;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 6px;
-    padding: 13px 19px;
-  }
-
-  & input::-webkit-input-placeholder,
-  & input:-ms-input-placeholder,
-  & input::placeholder {
-    background-color: transparent;
-    color: rgba(0, 0, 0, 0.3);
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-  }
-
-  & label {
-    font-size: 16px;
-    line-height: 24px;
-    font-weight: 500;
-    color: #c4c4c4;
-    margin-bottom: 4px;
-    display: block;
-  }
 
   @media ${device.mobile} {
     width: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
     flex-direction: column;
-
-    & input {
-      border-radius: 30px;
-      padding: 9px 17px;
-    }
-
-    & input::-webkit-input-placeholder,
-    & input:-ms-input-placeholder,
-    & input::-ms-input-placeholder,
-    & input::placeholder {
-      font-size: 14px;
-      line-height: 21px;
-    }
-    & label {
-      font-size: 14px;
-      line-height: 21px;
-      color: #c4c4c4;
-      margin-bottom: 6px;
-    }
   }
 `;
 
@@ -197,9 +123,6 @@ export const ProfileSaveBtn = styled(ButtonMain)`
   width: 154px;
   height: 50px;
   margin: 10px 7px 0;
-  background-color: #009ee4;
-  border-radius: 6px;
-  border: 1px solid #009ee4;
 
   @media ${device.mobile} {
     font-size: 16px;
