@@ -1,6 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { SKYVITO_API_BASE_URL } from "../constants";
+import { getAccessToken } from "../libs/auth";
 
+//builds query string including only real == included parameters
 function buildQueryString(queryParamsObj) {
   /* type of object: 
   {
@@ -41,13 +43,15 @@ export const skyvitoApi = createApi({
       providesTags: [{ type: "GetAds" }],
     }),
     getUser: builder.query({
-      query: ({ accessToken }) => {
+      query: () => {
+        const accessTokenObj = getAccessToken();
+
         return {
           url: "user",
           method: "GET",
           headers: {
             Accept: "application/json",
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bearer ${accessTokenObj.value}`,
           },
         };
       },
@@ -68,6 +72,43 @@ export const skyvitoApi = createApi({
           },
         };
       },
+    }),
+    patchUser: builder.mutation({
+      query: (user) => {
+        const accessTokenObj = getAccessToken();
+
+        return {
+          url: "user",
+          method: "PATCH",
+          headers: {
+            Accept: "application/json",
+            "Content-type": "application/json",
+            Authorization: `Bearer ${accessTokenObj.value}`,
+          },
+          body: user,
+        };
+      },
+      invalidatesTags: ["GetUser"],
+    }),
+    postUserAvatar: builder.mutation({
+      query: ({ avatarImg }) => {
+        //TODO: fix. in swagger the image passed as a binary file, here it's just a binary stream
+        const accessTokenObj = getAccessToken();
+        const formData = new FormData();
+        formData.append("file_to_upload", avatarImg);
+
+        return {
+          url: "user/avatar",
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${accessTokenObj.value}`,
+          },
+          body: formData,
+          formData: true,
+        };
+      },
+      invalidatesTags: ["GetUser"],
     }),
     postAuthRegister: builder.mutation({
       query: ({
@@ -100,6 +141,22 @@ export const skyvitoApi = createApi({
         };
       },
     }),
+    putRefreshTokens: builder.mutation({
+      query: ({ accessToken, refreshToken }) => {
+        return {
+          url: "auth/login",
+          method: "PUT",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: {
+            access_token: accessToken,
+            refresh_token: refreshToken,
+          },
+        };
+      },
+    }),
   }),
 });
 
@@ -107,5 +164,8 @@ export const {
   useGetAdsQuery,
   usePostAuthLoginMutation,
   usePostAuthRegisterMutation,
+  usePatchUserMutation,
   useGetUserQuery,
+  usePostUserAvatarMutation,
+  usePutRefreshTokensMutation,
 } = skyvitoApi;
