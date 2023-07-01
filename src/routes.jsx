@@ -10,18 +10,11 @@ import SellerProfile from "./pages/seller-profile";
 import Reviews from "./pages/reviews";
 import MyAdv from "./pages/my-adv";
 import { ProtectedRoute } from "./components/protected-route";
-import { ACCESS_TOKEN_TIMEOUT } from "./constants";
-import { getAccessToken } from "./libs/auth";
+import { useIsAuthenticated } from "./libs/auth";
 
 export default function AppRoutes() {
-  const accessTokenObj = getAccessToken();
-
-  /* access token lives for ACCESS_TOKEN_TIMEOUT.
-  user most likely has access if access token is fresh */
-  //TODO: controversal way to check accessability
-  const isAllowed =
-    accessTokenObj &&
-    (Date.now() - accessTokenObj.timestamp) / 1000 / 60 < ACCESS_TOKEN_TIMEOUT;
+  const isAllowed = useIsAuthenticated();
+  console.log("is allowed", isAllowed);
 
   return (
     <Routes>
