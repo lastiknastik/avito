@@ -9,14 +9,21 @@ import ProfileImg from "../../components/profile-img";
 import ButtonMain from "../../components/button-main";
 import Goods from "../../components/goods";
 import HeaderMain from "../../components/header-main";
-import { useGetUserQuery } from "../../services/skyvitoSrvcAPI";
-import { getAccessToken } from "../../libs/auth";
+import {
+  useGetUserQuery,
+  usePatchUserMutation,
+  usePostUserAvatarMutation,
+} from "../../services/skyvitoSrvcAPI";
+//import { getAccessToken } from "../../libs/auth";
 import React from "react";
 import ActionInput from "../../components/action-input";
 import { SKYVITO_API_BASE_URL } from "../../constants";
 import { useState } from "react";
 
 function ProfileContent({ data }) {
+  const [patchUser, patchUserResponse] = usePatchUserMutation();
+  const [postUserAvatar, postUserAvatarResponse] = usePostUserAvatarMutation();
+
   const formId = "profile_form";
   //set default value for avatar src
   const [avatarSrc, setAvatarSrc] = useState({
@@ -26,9 +33,10 @@ function ProfileContent({ data }) {
 
   //display preview of selected image
   const onAvatarValueChangeHandler = (e) => {
+    console.log("avatar", e);
     if (e.target.files && e.target.files[0]) {
       setAvatarSrc({
-        value: e.target.value,
+        value: e.target.files[0],
         src: URL.createObjectURL(e.target.files[0]),
       });
     }
@@ -93,14 +101,46 @@ function ProfileContent({ data }) {
       }
     }
 
+    console.log(avatarSrc);
     if (avatarSrc.value) {
       //POST /user/avatar
       console.log("POST avatar", avatarSrc.value);
+
+      const reader = new FileReader();
+      reader.onload = function () {
+        const fileToSave = reader.result;
+
+        postUserAvatar({ avatarImg: fileToSave });
+      };
+      reader.readAsBinaryString(avatarSrc.value);
+
+      //postUserAvatar({ avatarImg: avatarSrc.value });
     }
 
     if (Object.keys(userUpdatedAttrs).length) {
       //PATCH /user
-      console.log("PATCH user", userUpdatedAttrs);
+      patchUser(userUpdatedAttrs)
+        .unwrap()
+        .then((payload) => {
+          console.log("patch user", payload);
+          //changedProfileSettings.changedSettings
+          for (const key in payload) {
+            const index = changedProfileSettings.changedSettings.indexOf(key);
+
+            if (index > -1) {
+              changedProfileSettings.changedSettings.splice(index, 1);
+            }
+          }
+
+          changedProfileSettings.isChanged =
+            changedProfileSettings.changedSettings.length > 0;
+
+          setChangedProfileSettings({
+            isChanged: changedProfileSettings.isChanged,
+            changedSettings: changedProfileSettings.changedSettings,
+          });
+        })
+        .catch((error) => console.log("error", error));
     }
   };
 
@@ -167,10 +207,10 @@ function ProfileContent({ data }) {
 }
 
 export default function Profile() {
-  const accessTokenObj = getAccessToken();
+  //const accessTokenObj = getAccessToken();
 
   const { isSuccess, isLoading, isError, data } = useGetUserQuery(
-    { accessToken: accessTokenObj.value },
+    /* { accessToken: accessTokenObj.value }, */
     { skip: false }
   );
 
@@ -180,12 +220,6 @@ export default function Profile() {
       <main className="main">
         <S.MainContainer>
           <S.MainCenterBlock>
-            <HeaderMain>
-              <Logo />
-              <FormMenu>
-                <ButtonMain>Вернуться на главную</ButtonMain>
-              </FormMenu>
-            </HeaderMain>
             {isSuccess ? (
               <ProfileContent data={data} />
             ) : (

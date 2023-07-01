@@ -39,7 +39,9 @@ export default function SignIn() {
         setRefreshToken(payload.refresh_token); //set refresh token
 
         console.log("before redirect");
-        navigate("/profile"); //if everything is good, redirect to profile page. TODO: implement redirectURL feature
+
+        //navigate("/profile"); //if everything is good, redirect to profile page. TODO: implement redirectURL feature
+        window.location.href = "/profile"; //navigate did not work
       })
       .catch((error) => console.error("rejected", error));
   };

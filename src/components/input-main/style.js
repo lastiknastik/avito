@@ -20,9 +20,6 @@ export const InputMain = styled.input`
     display: none;
   }
 
-  &::-webkit-input-placeholder,
-  &:-ms-input-placeholder,
-  &::-ms-input-placeholder,
   &::placeholder {
     background-color: transparent;
     color: rgba(0, 0, 0, 0.3);
@@ -48,9 +45,6 @@ export const InputMainMobile = styled.input`
     line-height: 21px;
     color: #000000;
 
-    &::-webkit-input-placeholder,
-    &:-ms-input-placeholder,
-    &::-ms-input-placeholder,
     &::placeholder {
       background-color: transparent;
       color: #b3b3b3;

@@ -36,6 +36,7 @@ export default function SignUp() {
         signIn({ email: formData.email, password: formData.password })
           .unwrap()
           .then((payload) => {
+            console.log("sign up payload", payload);
             setAccessToken(payload.access_token); //set access token
             setRefreshToken(payload.refresh_token); //set refresh token
 

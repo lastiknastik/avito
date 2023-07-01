@@ -34,10 +34,10 @@ export const getAccessToken = () => {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: {
+        body: JSON.stringify({
           access_token: accessTokenObj.value,
           refresh_token: refreshtokenObj.value,
-        },
+        }),
       })
         .then((payload) => payload.json())
         .then((data) => {
@@ -47,7 +47,7 @@ export const getAccessToken = () => {
         })
         .catch((err) => console.error("PUT auth/login", err));
     } else {
-      console.log("token is fresh", accessTokenObj);
+      console.log("tokens are fresh", accessTokenObj);
       return accessTokenObj;
     }
   } else {
