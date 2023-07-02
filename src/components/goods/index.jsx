@@ -1,6 +1,9 @@
 import * as S from "./style";
 import { SKYVITO_API_BASE_URL } from "../../constants";
+import { useNavigate } from "react-router-dom";
+import { prettifyDate } from "../../libs/utils";
 
+/*
 const monthNames = [
   "Января",
   "Февраля",
@@ -15,20 +18,31 @@ const monthNames = [
   "Ноября",
   "Декабря",
 ];
+*/
 
 function Card(props) {
+  const navigate = useNavigate();
+
+  const openCardPageById = (cardId) => {
+    return () => {
+      navigate(`/adv/${cardId}`);
+    };
+  };
+
   return (
     <S.CardItem>
       <S.Card>
         <S.CardImg>
-          <a href="#" target="_blank">
-            <img src={props.imgSrc} alt="goods" />
-          </a>
+          <img
+            src={props.imgSrc}
+            alt="goods"
+            onClick={openCardPageById(props.id)}
+          />
         </S.CardImg>
         <div>
-          <a href="" target="_blank">
-            <S.CardTitle>{props.title}</S.CardTitle>
-          </a>
+          <S.CardTitle onClick={openCardPageById(props.id)}>
+            {props.title}
+          </S.CardTitle>
           <S.CardPrice>{props.price}</S.CardPrice>
           <S.CardPlace>{props.place}</S.CardPlace>
           <S.CardDate>{props.date}</S.CardDate>
@@ -38,48 +52,50 @@ function Card(props) {
   );
 }
 
+/*
+//display as dd MMMM hh:mm for current year, Yesterday, Today otherwise dd.mm.yyyy hh:mm
+const prettifyDate = (created_on) => {
+  let date = "";
+  const createdOn = new Date(created_on);
+  const today = new Date();
+
+  if (createdOn.getFullYear() === today.getFullYear()) {
+    if (createdOn.getMonth() === today.getMonth()) {
+      if (createdOn.getDate() === today.getDate()) {
+        date = "Сегодня в";
+      } else if (createdOn.getDate() - today.getDate() === 1) {
+        date = "Вчера в";
+      } else {
+        date = `${createdOn.getDate()} ${monthNames[createdOn.getMonth()]}`;
+      }
+    } else {
+      date = `${createdOn.getDate()} ${monthNames[createdOn.getMonth()]}`;
+    }
+  } else {
+    date = createdOn.toLocaleDateString("ru-RU");
+  }
+
+  date += ` ${createdOn.getHours().toString().padStart(2, "0")}:${createdOn
+    .getMinutes()
+    .toString()
+    .padStart(2, "0")}`;
+
+  return date;
+};
+*/
+
 export default function Goods({ goods = [] }) {
   return (
     <S.MainContent>
       {goods.length > 0 ? (
         <S.ContentCards>
           {goods.map((g) => {
-            let date = "";
-            const createdOn = new Date(g.created_on);
-            const today = new Date();
-
-            //display as dd MMMM hh:mm for current year, Yesterday, Today otherwise dd.mm.yyyy hh:mm
-            if (createdOn.getFullYear() === today.getFullYear()) {
-              if (createdOn.getMonth() === today.getMonth()) {
-                if (createdOn.getDate() === today.getDate()) {
-                  date = "Сегодня";
-                } else if (createdOn.getDate() - today.getDate() === 1) {
-                  date = "Вчера";
-                } else {
-                  date = `${createdOn.getDate()} ${
-                    monthNames[createdOn.getMonth()]
-                  }`;
-                }
-              } else {
-                date = `${createdOn.getDate()} ${
-                  monthNames[createdOn.getMonth()]
-                }`;
-              }
-            } else {
-              date = createdOn.toLocaleDateString("ru-RU");
-            }
-
-            date += ` ${createdOn
-              .getHours()
-              .toString()
-              .padStart(2, "0")}:${createdOn
-              .getMinutes()
-              .toString()
-              .padStart(2, "0")}`;
+            const date = prettifyDate(g.created_on);
 
             return (
               <Card
                 key={g.id}
+                id={g.id}
                 title={g.title}
                 price={g.price.toLocaleString("ru-RU", {
                   minimumFractionDigits: 0,
@@ -93,7 +109,7 @@ export default function Goods({ goods = [] }) {
                     ? SKYVITO_API_BASE_URL + g.images[0].url
                     : "../no-image.png"
                 }
-              ></Card>
+              />
             );
           })}
         </S.ContentCards>
