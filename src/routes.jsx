@@ -21,9 +21,9 @@ export default function AppRoutes() {
       <Route path="/" element={<Main />} />
       <Route path="/signin" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
+      <Route path="/adv/:id" element={<Adv />} />
       <Route element={<ProtectedRoute isAllowed={isAllowed} />}>
         <Route path="/profile" element={<Profile />} />
-        <Route path="/adv" element={<Adv />} />
         <Route path="/new-adv" element={<NewAdv />} />
         <Route path="/seller-profile" element={<SellerProfile />} />
         <Route path="/reviews" element={<Reviews />} />
