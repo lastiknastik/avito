@@ -14,7 +14,6 @@ import { useIsAuthenticated } from "./libs/auth";
 
 export default function AppRoutes() {
   const isAllowed = useIsAuthenticated();
-  console.log("is allowed", isAllowed);
 
   return (
     <Routes>

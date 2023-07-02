@@ -7,8 +7,6 @@ import { useParams } from "react-router-dom";
 export default function Adv() {
   const { id } = useParams();
 
-  console.log("card id: ", id);
-
   return (
     <React.Fragment>
       <Header />

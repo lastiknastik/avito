@@ -18,7 +18,6 @@ export default function Header(props) {
   };
 
   const location = useLocation();
-  //console.log("rout", location.pathname);
   const showAdsFilterBar = location.pathname === "/";
 
   const dispatch = useDispatch();

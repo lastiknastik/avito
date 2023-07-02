@@ -55,7 +55,7 @@ export default function Goods({ goods = [] }) {
                 imgSrc={
                   g.images.length > 0
                     ? SKYVITO_API_BASE_URL + g.images[0].url
-                    : { noImgPng }
+                    : noImgPng
                 }
               />
             );

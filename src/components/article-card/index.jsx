@@ -29,20 +29,7 @@ export default function ArticleCard({ articleId }) {
   const { isSuccess: currentUser_isSuccess, data: currentUser } =
     useGetUserQuery(); //cached data is ok
 
-  console.log("adv", adv);
-
   const [isPhoneHidden, setIsPhoneHidden] = useState(true);
-
-  /*
-  if (isSuccess) {
-    setSellerPhoneBtnAttrs({
-      hidden: sellerPhoneBtnAttrs.hidden,
-      phone: adv.user.phone,
-      textWhenHidden: "Показать телефон",
-      textWhenVisibe: "Скрыть телефон",
-    });
-  }
-  */
 
   const onShowPhoneBtnClickHandler = (e) => {
     setIsPhoneHidden(!isPhoneHidden);

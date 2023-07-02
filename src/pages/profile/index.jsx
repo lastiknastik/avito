@@ -28,7 +28,6 @@ function ProfileContent({ data }) {
 
   //display preview of selected image
   const onAvatarValueChangeHandler = (e) => {
-    console.log("avatar", e);
     if (e.target.files && e.target.files[0]) {
       setAvatarSrc({
         value: e.target.files[0],
@@ -96,11 +95,8 @@ function ProfileContent({ data }) {
       }
     }
 
-    console.log(avatarSrc);
     if (avatarSrc.value) {
       //POST /user/avatar
-      console.log("POST avatar", avatarSrc.value);
-
       const reader = new FileReader();
       reader.onload = function () {
         const fileToSave = reader.result;
@@ -115,7 +111,6 @@ function ProfileContent({ data }) {
       patchUser(userUpdatedAttrs)
         .unwrap()
         .then((payload) => {
-          console.log("patch user", payload);
           for (const key in payload) {
             const index = changedProfileSettings.changedSettings.indexOf(key);
 
@@ -132,7 +127,7 @@ function ProfileContent({ data }) {
             changedSettings: changedProfileSettings.changedSettings,
           });
         })
-        .catch((error) => console.log("error", error));
+        .catch((error) => console.error(error));
     }
   };
 

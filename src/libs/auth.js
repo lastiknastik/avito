@@ -16,15 +16,12 @@ export const getAccessToken = () => {
   //parsing empty string will throw an error, parsing null - will not
   const accessTokenObj = getTokenObj("access_token");
 
-  console.log("getAccessToken access_token", accessTokenObj);
-
   if (accessTokenObj && accessTokenObj.value) {
     if (
       (Date.now() - accessTokenObj.timestamp) / 1000 / 60 >
       ACCESS_TOKEN_TIMEOUT
     ) {
-      console.log("access_token exists but expired");
-
+      //access_token exists but expired
       const refreshtokenObj = getTokenObj("refresh_token");
 
       //refresh tokens via api call. TODO: use RTK query
@@ -41,55 +38,22 @@ export const getAccessToken = () => {
       })
         .then((payload) => payload.json())
         .then((data) => {
-          console.log("refresh tokens fetch processed, new values: ", data);
           setAccessToken(data.access_token); //set access token
           setRefreshToken(data.refresh_token); //set refresh token
         })
         .catch((err) => console.error("PUT auth/login", err));
     } else {
-      console.log("tokens are fresh", accessTokenObj);
-      return accessTokenObj;
-    }
-  } else {
-    console.log("no accessTokenObj", accessTokenObj);
-    return null;
-  }
-};
-
-/*
-//custom hook returns always fresh access token, otherwise returns null
-export const useGetAccessToken = () => {
-  const [refreshTokens, refreshTokensResponse] = usePutRefreshTokensMutation();
-  //parsing empty string will throw an error, parsing null - will not
-  const accessTokenObj = getTokenObj("access_token");
-
-  if (accessTokenObj) {
-    if (
-      (Date.now() - accessTokenObj.timestamp) / 1000 / 60 >
-      ACCESS_TOKEN_TIMEOUT
-    ) {
-      refreshTokens()
-        .unwrap()
-        .then((payload) => {
-          setAccessToken(payload.access_token); //set access token
-          setRefreshToken(payload.refresh_token); //set refresh token
-
-          return getTokenObj("access_token");
-        })
-        .catch((err) => console.error("useGetAccessToken", err));
-    } else {
+      //tokens are fresh
       return accessTokenObj;
     }
   } else {
     return null;
   }
 };
-*/
 
 //returns authenticated flag
 export const useIsAuthenticated = () => {
   const accessTokenObj = getAccessToken();
-  console.log("useIsAuthenticated accessTokenObj", accessTokenObj);
   return accessTokenObj ? true : false;
 };
 
