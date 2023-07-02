@@ -1,24 +1,8 @@
 import * as S from "./style";
 import { SKYVITO_API_BASE_URL } from "../../constants";
 import { useNavigate } from "react-router-dom";
-import { prettifyDate } from "../../libs/utils";
-
-/*
-const monthNames = [
-  "Января",
-  "Февраля",
-  "Марта",
-  "Апреля",
-  "Мая",
-  "Июня",
-  "Июля",
-  "Августа",
-  "Сентября",
-  "Октября",
-  "Ноября",
-  "Декабря",
-];
-*/
+import { prettifyDate, prettifyPrice } from "../../libs/utils";
+import noImgPng from "../../static/img/no-image.png";
 
 function Card(props) {
   const navigate = useNavigate();
@@ -52,38 +36,6 @@ function Card(props) {
   );
 }
 
-/*
-//display as dd MMMM hh:mm for current year, Yesterday, Today otherwise dd.mm.yyyy hh:mm
-const prettifyDate = (created_on) => {
-  let date = "";
-  const createdOn = new Date(created_on);
-  const today = new Date();
-
-  if (createdOn.getFullYear() === today.getFullYear()) {
-    if (createdOn.getMonth() === today.getMonth()) {
-      if (createdOn.getDate() === today.getDate()) {
-        date = "Сегодня в";
-      } else if (createdOn.getDate() - today.getDate() === 1) {
-        date = "Вчера в";
-      } else {
-        date = `${createdOn.getDate()} ${monthNames[createdOn.getMonth()]}`;
-      }
-    } else {
-      date = `${createdOn.getDate()} ${monthNames[createdOn.getMonth()]}`;
-    }
-  } else {
-    date = createdOn.toLocaleDateString("ru-RU");
-  }
-
-  date += ` ${createdOn.getHours().toString().padStart(2, "0")}:${createdOn
-    .getMinutes()
-    .toString()
-    .padStart(2, "0")}`;
-
-  return date;
-};
-*/
-
 export default function Goods({ goods = [] }) {
   return (
     <S.MainContent>
@@ -97,17 +49,13 @@ export default function Goods({ goods = [] }) {
                 key={g.id}
                 id={g.id}
                 title={g.title}
-                price={g.price.toLocaleString("ru-RU", {
-                  minimumFractionDigits: 0,
-                  style: "currency",
-                  currency: "RUB",
-                })}
+                price={prettifyPrice(g.price)}
                 place={g.user?.city}
                 date={date}
                 imgSrc={
                   g.images.length > 0
                     ? SKYVITO_API_BASE_URL + g.images[0].url
-                    : "../no-image.png"
+                    : { noImgPng }
                 }
               />
             );

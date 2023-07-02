@@ -21,20 +21,15 @@ export const MainContent = styled.div`
 export const ContentCards = styled.div`
   max-width: 1158px;
   width: 100%;
-  display: -ms-grid;
   display: grid;
-  /* -ms-grid-columns: (270px) [4]; */
   grid-template-columns: repeat(4, 270px);
   grid-auto-rows: 441px;
   grid-gap: 40px 26px;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
   overflow-y: auto;
   scrollbar-color: #ffffff #2e2e2e;
   scrollbar-width: thin;
   scrollbar-width: 0px;
-  /* height: 922px; */
 
   &::-webkit-scrollbar {
     width: 0px;
@@ -47,28 +42,21 @@ export const ContentCards = styled.div`
   }
 
   @media ${device.laptop} {
-    display: -ms-grid;
     display: grid;
-    /* -ms-grid-columns: (270px) [3]; */
     grid-template-columns: repeat(3, 270px);
   }
 
   @media ${device.tablet} {
-    display: -ms-grid;
     display: grid;
-    /* -ms-grid-columns: (270px) [2]; */
     grid-template-columns: repeat(2, 270px);
   }
 
   @media ${device.mobile} {
     display: -ms-grid;
     display: grid;
-    /* -ms-grid-columns: (137px) [2]; */
     grid-template-columns: repeat(2, 137px);
     grid-auto-rows: 293px;
     grid-gap: 10px 10px;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
     justify-content: center;
   }
 `;
@@ -78,7 +66,6 @@ export const CardItem = styled.div`
 
   @media ${device.mobile} {
     margin: 0;
-    -webkit-box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.1);
     box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.1);
     border-radius: 6px;
   }
@@ -87,23 +74,13 @@ export const CardItem = styled.div`
 export const Card = styled.div`
   width: 270px;
   height: 441px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
   flex-direction: column;
 
   @media ${device.mobile} {
     width: 137px;
     height: 293px;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
     flex-direction: column;
   }
 `;
@@ -112,12 +89,12 @@ export const CardImg = styled.div`
   width: 270px;
   height: 270px;
   background-color: #f0f0f0;
+  cursor: pointer;
 
   & img {
     width: 100%;
     height: 100%;
     display: block;
-    -o-object-fit: cover;
     object-fit: cover;
   }
 
@@ -132,7 +109,6 @@ export const CardImg = styled.div`
       width: 100%;
       height: 100%;
       display: block;
-      -o-object-fit: cover;
       object-fit: cover;
       border-top-left-radius: 6px;
       border-top-right-radius: 6px;
@@ -150,6 +126,7 @@ export const CardTitle = styled.h3`
   margin-top: 20px;
   overflow: hidden;
   text-overflow: ellipsis;
+  cursor: pointer;
 
   @media ${device.mobile} {
     height: 51px;

@@ -17,11 +17,9 @@ export const Main = styled.div`
 `;
 
 export const Content = styled.div`
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   align-items: top;
-  justify-content: center;
+  justify-content: left;
 
   @media ${device.tablet} {
     display: flex;
@@ -314,6 +312,7 @@ export const AuthorImg = styled.div`
   height: 40px;
   background-color: #f0f0f0;
   border-radius: 50%;
+  overflow: hidden;
 
   & img {
     width: 100%;

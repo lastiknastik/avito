@@ -1,20 +1,15 @@
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import * as S from "./style";
-import Logo from "../../components/logo";
-import FormMenu from "../../components/form-menu";
 import HeaderTitle from "../../components/font-styles/header-title";
 import HeaderSubtitle from "../../components/font-styles/header-subtitle";
 import ProfileImg from "../../components/profile-img";
-import ButtonMain from "../../components/button-main";
 import Goods from "../../components/goods";
-import HeaderMain from "../../components/header-main";
 import {
   useGetUserQuery,
   usePatchUserMutation,
   usePostUserAvatarMutation,
 } from "../../services/skyvitoSrvcAPI";
-//import { getAccessToken } from "../../libs/auth";
 import React from "react";
 import ActionInput from "../../components/action-input";
 import { SKYVITO_API_BASE_URL } from "../../constants";
@@ -113,8 +108,6 @@ function ProfileContent({ data }) {
         postUserAvatar({ avatarImg: fileToSave });
       };
       reader.readAsBinaryString(avatarSrc.value);
-
-      //postUserAvatar({ avatarImg: avatarSrc.value });
     }
 
     if (Object.keys(userUpdatedAttrs).length) {
@@ -123,7 +116,6 @@ function ProfileContent({ data }) {
         .unwrap()
         .then((payload) => {
           console.log("patch user", payload);
-          //changedProfileSettings.changedSettings
           for (const key in payload) {
             const index = changedProfileSettings.changedSettings.indexOf(key);
 
@@ -207,12 +199,9 @@ function ProfileContent({ data }) {
 }
 
 export default function Profile() {
-  //const accessTokenObj = getAccessToken();
-
-  const { isSuccess, isLoading, isError, data } = useGetUserQuery(
-    /* { accessToken: accessTokenObj.value }, */
-    { skip: false }
-  );
+  const { isSuccess, isLoading, isError, data } = useGetUserQuery({
+    skip: false,
+  });
 
   return (
     <React.Fragment>

@@ -11,7 +11,7 @@ export default function Main() {
         {/* TODO: get rid of ContainerMain: move it to local styled components */}
         <ContainerMain />
       </main>
-      <Footer></Footer>
+      <Footer />
     </React.Fragment>
   );
 }

@@ -2,6 +2,14 @@ import * as S from "./style";
 import HeaderSubtitle from "../font-styles/header-subtitle";
 import React from "react";
 import ButtonMain from "../button-main";
+import {
+  useGetAdsByIdQuery,
+  useGetUserQuery,
+} from "../../services/skyvitoSrvcAPI";
+import { prettifyDate, prettifyPrice, formatSellsFrom } from "../../libs/utils";
+import { SKYVITO_API_BASE_URL } from "../../constants";
+import avatarStub from "../../static/img/avatar.png";
+import { useState } from "react";
 
 function ImgBarItem() {
   return (
@@ -11,12 +19,38 @@ function ImgBarItem() {
   );
 }
 
-export default function ArticleCard({ children, articleId }) {
-  const isMyAdv = true; //TODO: check currentUserId === articleAuthorId ? true : false
-  //TODO:
-  const article = { id: articleId, imgSrc: "imgSrc" };
+export default function ArticleCard({ articleId }) {
+  const {
+    data: adv,
+    isLoading,
+    isSuccess,
+  } = useGetAdsByIdQuery({ id: articleId }, { skip: false });
 
-  return (
+  const { isSuccess: currentUser_isSuccess, data: currentUser } =
+    useGetUserQuery(); //cached data is ok
+
+  console.log("adv", adv);
+
+  const [isPhoneHidden, setIsPhoneHidden] = useState(true);
+
+  /*
+  if (isSuccess) {
+    setSellerPhoneBtnAttrs({
+      hidden: sellerPhoneBtnAttrs.hidden,
+      phone: adv.user.phone,
+      textWhenHidden: "Показать телефон",
+      textWhenVisibe: "Скрыть телефон",
+    });
+  }
+  */
+
+  const onShowPhoneBtnClickHandler = (e) => {
+    setIsPhoneHidden(!isPhoneHidden);
+  };
+
+  return isLoading ? (
+    <p>Adv content is loading</p>
+  ) : isSuccess ? (
     <React.Fragment>
       <S.Main>
         <S.Content>
@@ -32,7 +66,7 @@ export default function ArticleCard({ children, articleId }) {
                 <ImgBarItem />
               </S.ArticleImgBar>
               <S.ArticleImgBarMob>
-                {/* TODO: mark one of them active - REDUX */}
+                {/* TODO: mark one of them active - useState */}
                 <S.ArticleImgBarItemCircle />
                 <S.ArticleImgBarItemCircle />
                 <S.ArticleImgBarItemCircle />
@@ -43,37 +77,61 @@ export default function ArticleCard({ children, articleId }) {
           <S.ContentRight>
             <S.ArticleInfoWrapper>
               <S.HeaderSubtitleNoMarginBottom>
-                {"Ракетка для большого тенниса Triumph Pro STС Б/У"}
+                {adv.title}
               </S.HeaderSubtitleNoMarginBottom>
               <S.ArticleInfo>
-                <S.ArticleInfoDate>{"Сегодня в 10:45"}</S.ArticleInfoDate>
-                <S.ArticleInfoCity>{"Санкт-Петербург"}</S.ArticleInfoCity>
+                <S.ArticleInfoDate>
+                  {prettifyDate(adv.created_on)}
+                </S.ArticleInfoDate>
+                <S.ArticleInfoCity>{adv.user.city}</S.ArticleInfoCity>
                 <S.ArticleInfoLink href="" target="_blank">
                   {"23 отзыва"}
                 </S.ArticleInfoLink>
               </S.ArticleInfo>
-              <S.ArticleInfoPrice>2 200 ₽</S.ArticleInfoPrice>
+              <S.ArticleInfoPrice>
+                {prettifyPrice(adv.price)}
+              </S.ArticleInfoPrice>
               <S.ArticleActionsWrapper>
-                {isMyAdv ? (
+                {currentUser_isSuccess && currentUser.id === adv.user.id ? (
                   <React.Fragment>
                     <ButtonMain>Редактировать</ButtonMain>
                     <ButtonMain>Снять с публикации</ButtonMain>
                   </React.Fragment>
                 ) : (
-                  <ButtonMain>
-                    Показать телефон
-                    <span>8 905 ХХХ ХХ ХХ</span>
+                  <ButtonMain onClick={onShowPhoneBtnClickHandler}>
+                    {isPhoneHidden ? "Показать телефон" : "Скрыть телефон"}
+                    <span>
+                      {isPhoneHidden
+                        ? adv.user.phone.substring(
+                            0,
+                            adv.user.phone.length - 9
+                          ) +
+                          adv.user.phone
+                            .replace(/[0-9]/g, "X")
+                            .substring(
+                              adv.user.phone.length - 9,
+                              adv.user.phone.length
+                            )
+                        : adv.user.phone}
+                    </span>
                   </ButtonMain>
                 )}
               </S.ArticleActionsWrapper>
               <S.ArticleAuthor>
                 <S.AuthorImg>
-                  <img src="" alt="" />
+                  <img
+                    src={
+                      adv.user.avatar
+                        ? SKYVITO_API_BASE_URL + adv.user.avatar
+                        : avatarStub
+                    }
+                    alt="avatar"
+                  />
                 </S.AuthorImg>
                 <S.AuthorInfo>
-                  <S.AuthorName>Кирилл</S.AuthorName>
+                  <S.AuthorName>{adv.user.name}</S.AuthorName>
                   <S.AuthorAbout>
-                    {"Продает товары с августа 2021"}
+                    {`Продает товары с ${formatSellsFrom(adv.user.sells_from)}`}
                   </S.AuthorAbout>
                 </S.AuthorInfo>
               </S.ArticleAuthor>
@@ -84,11 +142,13 @@ export default function ArticleCard({ children, articleId }) {
       <S.ArticleDescription>
         <HeaderSubtitle>{"Описание товара"}</HeaderSubtitle>
         <S.ArticleDescriptionContent>
-          {
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-          }
+          {adv.description && adv.description !== ""
+            ? adv.description
+            : "Описание отсутствует"}
         </S.ArticleDescriptionContent>
       </S.ArticleDescription>
     </React.Fragment>
+  ) : (
+    <p>Adv loading failed</p>
   );
 }

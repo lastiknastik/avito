@@ -42,3 +42,16 @@ export const prettifyDate = (created_on) => {
 
   return date;
 };
+
+export const prettifyPrice = (price) => {
+  return price.toLocaleString("ru-RU", {
+    minimumFractionDigits: 0,
+    style: "currency",
+    currency: "RUB",
+  });
+};
+
+export const formatSellsFrom = (sellsFrom) => {
+  const date = new Date(sellsFrom);
+  return `${monthNames[date.getMonth()].toLowerCase()} ${date.getFullYear()}`;
+};
