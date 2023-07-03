@@ -9,10 +9,11 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setMainGoodsSearchFilter } from "../../store/actions/creators/creators";
 import InputMain from "../input-main";
+import { useIsAuthenticated } from "../../libs/auth";
 
 export default function Header(props) {
   const navigate = useNavigate();
-  const isLoggedIn = true; //TODO: substitute with real data
+  const isLoggedIn = useIsAuthenticated();
   const onOpenMainBtnClickHandler = (e) => {
     navigate("/");
   };
@@ -33,7 +34,6 @@ export default function Header(props) {
   };
 
   const goodsSearchFormSubmitHandler = (e) => {
-    //just preventDefault is enough because blur will be happened anyway
     e.preventDefault();
     e.stopPropagation();
 
@@ -51,6 +51,14 @@ export default function Header(props) {
     dispathSetMainGoodsSearchFilter(filterValue);
   };
 
+  const onSignInBtnClickHandler = (e) => {
+    navigate("/signin");
+  };
+
+  const onMyProfileBtnClickHandler = (e) => {
+    navigate("/profile");
+  };
+
   return (
     <React.Fragment>
       <S.Header>
@@ -58,12 +66,17 @@ export default function Header(props) {
           {isLoggedIn ? (
             <React.Fragment>
               <ButtonHeader>{"Разместить объявление"}</ButtonHeader>
-              <ButtonHeader marginLeft={"10px"}>
+              <ButtonHeader
+                marginLeft={"10px"}
+                onClick={onMyProfileBtnClickHandler}
+              >
                 {"Личный кабинет"}
               </ButtonHeader>
             </React.Fragment>
           ) : (
-            <ButtonHeader>{"Вход в личный кабинет"}</ButtonHeader>
+            <ButtonHeader onClick={onSignInBtnClickHandler}>
+              {"Вход в личный кабинет"}
+            </ButtonHeader>
           )}
         </S.HeaderNav>
         <HeaderMain>

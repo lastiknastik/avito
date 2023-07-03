@@ -84,7 +84,7 @@ export default function ArticleCard({ articleId }) {
                     <ButtonMain>Редактировать</ButtonMain>
                     <ButtonMain>Снять с публикации</ButtonMain>
                   </React.Fragment>
-                ) : (
+                ) : adv.user.phone ? (
                   <ButtonMain onClick={onShowPhoneBtnClickHandler}>
                     {isPhoneHidden ? "Показать телефон" : "Скрыть телефон"}
                     <span>
@@ -102,6 +102,8 @@ export default function ArticleCard({ articleId }) {
                         : adv.user.phone}
                     </span>
                   </ButtonMain>
+                ) : (
+                  ""
                 )}
               </S.ArticleActionsWrapper>
               <S.ArticleAuthor>

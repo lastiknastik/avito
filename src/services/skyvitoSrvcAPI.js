@@ -60,7 +60,7 @@ export const skyvitoApi = createApi({
           method: "GET",
           headers: {
             Accept: "application/json",
-            Authorization: `Bearer ${accessTokenObj.value}`,
+            Authorization: `Bearer ${accessTokenObj?.value}`,
           },
         };
       },
