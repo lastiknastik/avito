@@ -1,4 +1,4 @@
-<p style="font-size: 32px;"><img src='https://github.com/lastiknastik/avito/blob/master/public/logo-mob.png'/>SkyVito</p>
+<h1><img src='https://github.com/lastiknastik/avito/blob/master/public/logo-mob.png'/>SkyVito</h1>
 
 # About SkyVito
 
