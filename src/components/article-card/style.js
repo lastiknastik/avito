@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { device } from "../../constants";
 import HeaderSubtitle from "../font-styles/header-subtitle";
+import { SKYVITO_API_BASE_URL } from "../../constants";
 
 export const Main = styled.div`
   max-width: 1178px;
@@ -59,8 +60,6 @@ export const ArticleImgWrapper = styled.div`
   }
 
   width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -97,14 +96,8 @@ export const ArticleImg = styled.div`
   height: 480px;
   background-color: #f0f0f0;
   margin: 0 5px;
-
-  & img {
-    width: 100%;
-    height: auto;
-    display: block;
-    -o-object-fit: cover;
-    object-fit: cover;
-  }
+  background: url("${(props) => props.imgSrc}") no-repeat center;
+  background-size: cover;
 
   @media ${device.tablet} {
     width: 100%;
@@ -139,14 +132,9 @@ export const ArticleImgBarItem = styled.div`
   background-color: #f0f0f0;
   border: 2px solid #f0f0f0;
   margin: 0 5px;
-
-  & img {
-    width: 100%;
-    height: auto;
-    display: block;
-    -o-object-fit: cover;
-    object-fit: cover;
-  }
+  background: url("${(props) => props.imgSrc}") no-repeat center;
+  background-size: cover;
+  display: ${(props) => (props.imgSrc ? "block" : "none")};
 `;
 
 export const ArticleImgBarMob = styled.div`
@@ -245,44 +233,6 @@ export const ArticleInfoPrice = styled.p`
     margin-bottom: 20px;
   }
 `;
-
-/*
-export const ArticleActionBtn = styled.button`
-  background-color: #009ee4;
-  border-radius: 6px;
-  border: 1px solid #009ee4;
-  width: 214px;
-  height: 62px;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 22px;
-  color: #ffffff;
-  font-family: "Roboto", sans-serif;
-
-  & span {
-    display: block;
-    font-size: 14px;
-    font-weight: 400;
-    white-space: nowrap;
-  }
-
-  :hover {
-    background-color: #0080c1;
-  }
-
-  @media ${device.tablet} {
-    width: 100%;
-    height: 57px;
-    font-size: 14px;
-    line-height: 20px;
-    color: #ffffff;
-
-    & span {
-      font-size: 12px;
-    }
-  }
-`;
-*/
 
 export const ArticleActionsWrapper = styled.div`
   display: flex;

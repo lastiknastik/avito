@@ -10,14 +10,7 @@ import { prettifyDate, prettifyPrice, formatSellsFrom } from "../../libs/utils";
 import { SKYVITO_API_BASE_URL } from "../../constants";
 import avatarStub from "../../static/img/avatar.png";
 import { useState } from "react";
-
-function ImgBarItem() {
-  return (
-    <S.ArticleImgBarItem>
-      <img src="" alt="" />
-    </S.ArticleImgBarItem>
-  );
-}
+import noImgPng from "../../static/img/no-image.png";
 
 export default function ArticleCard({ articleId }) {
   const {
@@ -25,6 +18,8 @@ export default function ArticleCard({ articleId }) {
     isLoading,
     isSuccess,
   } = useGetAdsByIdQuery({ id: articleId }, { skip: false });
+
+  if (isSuccess) console.log(adv);
 
   const { isSuccess: currentUser_isSuccess, data: currentUser } =
     useGetUserQuery(); //cached data is ok
@@ -35,6 +30,10 @@ export default function ArticleCard({ articleId }) {
     setIsPhoneHidden(!isPhoneHidden);
   };
 
+  const getImgSrc = (src, showStubImg) => {
+    return src ? SKYVITO_API_BASE_URL + src : showStubImg ? noImgPng : "";
+  };
+
   return isLoading ? (
     <p>Adv content is loading</p>
   ) : isSuccess ? (
@@ -43,14 +42,13 @@ export default function ArticleCard({ articleId }) {
         <S.Content>
           <S.ContentLeft>
             <S.ArticleImgWrapper>
-              <S.ArticleImg />
+              <S.ArticleImg imgSrc={getImgSrc(adv.images[0]?.url, true)} />
               <S.ArticleImgBar>
-                <ImgBarItem />
-                <ImgBarItem />
-                <ImgBarItem />
-                <ImgBarItem />
-                <ImgBarItem />
-                <ImgBarItem />
+                <S.ArticleImgBarItem imgSrc={getImgSrc(adv.images[1]?.url)} />
+                <S.ArticleImgBarItem imgSrc={getImgSrc(adv.images[2]?.url)} />
+                <S.ArticleImgBarItem imgSrc={getImgSrc(adv.images[3]?.url)} />
+                <S.ArticleImgBarItem imgSrc={getImgSrc(adv.images[4]?.url)} />
+                <S.ArticleImgBarItem imgSrc={getImgSrc(adv.images[5]?.url)} />
               </S.ArticleImgBar>
               <S.ArticleImgBarMob>
                 {/* TODO: mark one of them active - useState */}
