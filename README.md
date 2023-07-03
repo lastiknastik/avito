@@ -1,4 +1,6 @@
-# SkyVito
+<p><img src='https://github.com/lastiknastik/avito/blob/master/public/logo-mob.png'/></p>
+
+# About SkyVito
 
 Final individual project. Online classifieds app similar to Avito.
 
