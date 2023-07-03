@@ -30,6 +30,9 @@ export default function ArticleCard({ articleId }) {
     setIsPhoneHidden(!isPhoneHidden);
   };
 
+  /* returns img url or empty string if there is no img available
+  showStubImg parameter allows to show stub image if img url not provided
+  */
   const getImgSrc = (src, showStubImg) => {
     return src ? SKYVITO_API_BASE_URL + src : showStubImg ? noImgPng : "";
   };
@@ -51,7 +54,7 @@ export default function ArticleCard({ articleId }) {
                 <S.ArticleImgBarItem imgSrc={getImgSrc(adv.images[5]?.url)} />
               </S.ArticleImgBar>
               <S.ArticleImgBarMob>
-                {/* TODO: mark one of them active - useState */}
+                {/* TODO: mark one of them active - useState, show images and Go Back button */}
                 <S.ArticleImgBarItemCircle />
                 <S.ArticleImgBarItemCircle />
                 <S.ArticleImgBarItemCircle />

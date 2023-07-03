@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { device } from "../../constants";
 import HeaderSubtitle from "../font-styles/header-subtitle";
-import { SKYVITO_API_BASE_URL } from "../../constants";
 
 export const Main = styled.div`
   max-width: 1178px;
