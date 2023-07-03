@@ -29,14 +29,8 @@ export const Footer = styled.footer`
 export const FooterContainer = styled.div`
   @media ${device.mobile} {
     width: 225px;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
     justify-content: space-between;
   }
 `;
@@ -50,8 +44,8 @@ export const FooterImg = styled.div`
       width: 100%;
       height: 100%;
       display: block;
-      -o-object-fit: cover;
       object-fit: cover;
+      cursor: pointer;
     }
   }
 `;
