@@ -17,13 +17,21 @@ export default function Popover({
 
       const popoverCloseBtnWidth = popoverCloseBtnRef.current.offsetWidth;
 
-      popoverCloseBtnRef.current.style.transform = `translate(calc(${containerWidth}px / 2 - ${popoverCloseBtnWidth}px + 2px), calc(-${popoverCloseBtnWidth}px - 8px))`;
+      popoverCloseBtnRef.current.style.transform = `translate(calc(${containerWidth}px / 2 - ${popoverCloseBtnWidth}px - 15px), 28px)`;
     }
   }, []);
 
+  const onContainerClickHandler = (e) => {
+    e.stopPropagation();
+  };
+
+  const onWrapperClickHandler = (e) => {
+    onCloseHandler();
+  };
+
   return (
-    <S.Wrapper>
-      <S.Container ref={containerRef}>
+    <S.Wrapper onClick={onWrapperClickHandler}>
+      <S.Container ref={containerRef} onClick={onContainerClickHandler}>
         {closeBtnRequired ? (
           <S.PopoverCloseBtn
             onClick={onCloseHandler}

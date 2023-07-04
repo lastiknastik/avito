@@ -10,6 +10,9 @@ import { useDispatch } from "react-redux";
 import { setMainGoodsSearchFilter } from "../../store/actions/creators/creators";
 import InputMain from "../input-main";
 import { useIsAuthenticated } from "../../libs/auth";
+import { useState } from "react";
+import Popover from "../popover";
+import NewAdv from "../../pages/new-adv";
 
 export default function Header(props) {
   const navigate = useNavigate();
@@ -59,13 +62,33 @@ export default function Header(props) {
     navigate("/profile");
   };
 
+  //show Create Advertisment popover
+  const [isCreateAdvVisible, setIsCreateAdvVisible] = useState(false);
+
+  const onCreateAdvBtnClickHandler = (e) => {
+    setIsCreateAdvVisible(true);
+  };
+
+  const onCreateAdvPopoverCloseHandler = (e) => {
+    setIsCreateAdvVisible(false);
+  };
+
   return (
     <React.Fragment>
       <S.Header>
         <S.HeaderNav>
           {isLoggedIn ? (
             <React.Fragment>
-              <ButtonHeader>{"Разместить объявление"}</ButtonHeader>
+              <ButtonHeader onClick={onCreateAdvBtnClickHandler}>
+                {"Разместить объявление"}
+              </ButtonHeader>
+              {isCreateAdvVisible ? (
+                <Popover onClose={onCreateAdvPopoverCloseHandler}>
+                  <NewAdv />
+                </Popover>
+              ) : (
+                ""
+              )}
               <ButtonHeader
                 marginLeft={"10px"}
                 onClick={onMyProfileBtnClickHandler}
