@@ -3,54 +3,78 @@ import HeaderSubtitle from "../../components/font-styles/header-subtitle";
 import FormFieldWithLabel from "../../components/form-field-with-label";
 import ButtonMain from "../../components/button-main";
 import TextAreaWithLabel from "../../components/controls/textarea-with-label";
+import PriceWithLabel from "./price-with-label/index";
+import PhotosWithLabel from "./photos-with-label";
 
-function InputFieldWithLabel({ placeholder, name, id, type = "text", label }) {
+function InputFieldWithLabel({
+  placeholder,
+  name,
+  id,
+  type = "text",
+  label,
+  isRequired = false,
+}) {
   return (
     <FormFieldWithLabel>
       <label htmlFor={name}>{label}</label>
-      <S.FormInput placeholder={placeholder} name={name} id={id} type={type} />
+      <S.FormInput
+        placeholder={placeholder}
+        name={name}
+        id={id}
+        type={type}
+        required={isRequired}
+      />
     </FormFieldWithLabel>
   );
 }
 
-function PhotosWithLabel() {
-  return (
-    <FormFieldWithLabel>
-      <label htmlFor="adv-photos">
-        Фотографии товара <span>не более 5 фотографий</span>
-      </label>
-      <S.PhotosBar>
-        {[...Array(5)].map((p, i) => (
-          <S.PhotosBarItem key={i}>
-            <img src="" alt="" />
-            <S.PhotosBarItemCover />
-          </S.PhotosBarItem>
-        ))}
-      </S.PhotosBar>
-    </FormFieldWithLabel>
-  );
-}
+export default function NewAdv({ onClose }) {
+  const onNewAdvFormSubmitHandler = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
 
-function PriceWithLabel({ name, label, id, type = "text" }) {
-  return (
-    <S.FormFieldPricedWithLabel>
-      <label htmlFor={name}>{label}</label>
-      <S.PriceInput name={name} id={id} type={type} />
-      <S.PriceInputCover />
-    </S.FormFieldPricedWithLabel>
-  );
-}
+    const formElements = e.nativeEvent.srcElement;
+    const formData = { imgs: [] };
 
-export default function NewAdv({ children }) {
+    for (const el of formElements) {
+      if (["INPUT", "TEXTAREA"].includes(el.tagName) && el.value) {
+        switch (el.name) {
+          case "adv-name":
+            formData.title = el.value;
+            break;
+          case "adv-description":
+            formData.description = el.value;
+            break;
+          case "adv-price":
+            formData.price = el.value;
+            break;
+          default:
+            if (el.name.includes("adv-photos-")) {
+              formData.imgs.push({
+                name: el.files[0]?.name,
+                file: el.files[0],
+              });
+            }
+        }
+      }
+    }
+
+    //TODO: execute after successfull creation
+    if (onClose) {
+      onClose();
+    }
+  };
+
   return (
     <S.Wrapper>
       <HeaderSubtitle>{"Новое объявление"}</HeaderSubtitle>
-      <S.FormModal>
+      <S.FormModal onSubmit={onNewAdvFormSubmitHandler}>
         <InputFieldWithLabel
           name="adv-name"
           placeholder="Введите название"
           id="adv-name"
           label="Название"
+          isRequired={true}
         />
         <TextAreaWithLabel
           placeholder="Введите описание"
@@ -60,8 +84,14 @@ export default function NewAdv({ children }) {
           rows={10}
           label="Описание"
         />
-        <PhotosWithLabel />
-        <PriceWithLabel name="adv-price" id="adv-price" label="Цена" />
+        <PhotosWithLabel name="adv-photos" id="adv-photos" />
+        <PriceWithLabel
+          name="adv-price"
+          id="adv-price"
+          label="Цена"
+          type="number"
+          isRequired={true}
+        />
         <ButtonMain>Опубликовать</ButtonMain>
       </S.FormModal>
     </S.Wrapper>

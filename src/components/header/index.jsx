@@ -84,7 +84,7 @@ export default function Header(props) {
               </ButtonHeader>
               {isCreateAdvVisible ? (
                 <Popover onClose={onCreateAdvPopoverCloseHandler}>
-                  <NewAdv />
+                  <NewAdv onClose={onCreateAdvPopoverCloseHandler} />
                 </Popover>
               ) : (
                 ""

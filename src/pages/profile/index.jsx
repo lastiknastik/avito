@@ -194,7 +194,7 @@ function ProfileContent({ data }) {
 }
 
 export default function Profile() {
-  const { isSuccess, isLoading, isError, data } = useGetUserQuery({
+  const { isSuccess, data } = useGetUserQuery({
     skip: false,
   });
 
