@@ -16,6 +16,7 @@ export default function Footer() {
           navigate("/");
           break;
         case "create":
+          navigate("/new-adv");
           break;
         case "profile":
           navigate("/profile");
