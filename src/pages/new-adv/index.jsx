@@ -90,7 +90,6 @@ export default function NewAdv({ onClose }) {
           id="adv-price"
           label="Цена"
           type="number"
-          isRequired={true}
         />
         <ButtonMain>Опубликовать</ButtonMain>
       </S.FormModal>
