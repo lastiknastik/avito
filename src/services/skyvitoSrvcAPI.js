@@ -103,7 +103,7 @@ export const skyvitoApi = createApi({
       query: ({ avatarImg }) => {
         const accessTokenObj = getAccessToken();
         const formData = new FormData();
-        formData.append("file", avatarImg);
+        formData.append("userAvatar", avatarImg);
 
         return {
           url: "user/avatar",

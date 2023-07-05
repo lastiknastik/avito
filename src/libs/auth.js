@@ -1,4 +1,12 @@
-import { ACCESS_TOKEN_TIMEOUT, SKYVITO_API_BASE_URL } from "../constants";
+import {
+  ACCESS_TOKEN_TIMEOUT,
+  SKYVITO_API_BASE_URL,
+  UNAUTH_USER_REDIRECT_PATH,
+} from "../constants";
+
+export function redirectToUnauthUserRedirectPath() {
+  window.location.href = UNAUTH_USER_REDIRECT_PATH; //navigate did not work
+}
 
 //persists access token in local storage
 export const setAccessToken = (accessToken) => {
@@ -40,6 +48,7 @@ export const getAccessToken = () => {
         .then((data) => {
           setAccessToken(data.access_token); //set access token
           setRefreshToken(data.refresh_token); //set refresh token
+          console.log("from fetch", data);
         })
         .catch((err) => console.error("PUT auth/login", err));
     } else {
@@ -47,6 +56,7 @@ export const getAccessToken = () => {
       return accessTokenObj;
     }
   } else {
+    redirectToUnauthUserRedirectPath();
     return null;
   }
 };

@@ -29,8 +29,7 @@ export default function ArticleCard({ articleId }) {
   };
 
   /* returns img url or empty string if there is no img available
-  showStubImg parameter allows to show stub image if img url not provided
-  */
+  showStubImg parameter allows to show stub image if img url not provided */
   const getImgSrc = (src, showStubImg) => {
     return src ? SKYVITO_API_BASE_URL + src : showStubImg ? noImgPng : "";
   };
