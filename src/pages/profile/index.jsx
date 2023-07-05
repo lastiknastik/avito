@@ -97,14 +97,7 @@ function ProfileContent({ data }) {
     }
 
     if (avatarSrc.value) {
-      //POST /user/avatar
-      const reader = new FileReader();
-      reader.onload = function () {
-        const fileToSave = reader.result;
-
-        postUserAvatar({ avatarImg: fileToSave });
-      };
-      reader.readAsBinaryString(avatarSrc.value);
+      postUserAvatar({ avatarImg: avatarSrc.value });
     }
 
     if (Object.keys(userUpdatedAttrs).length) {

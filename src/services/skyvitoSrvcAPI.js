@@ -101,10 +101,9 @@ export const skyvitoApi = createApi({
     }),
     postUserAvatar: builder.mutation({
       query: ({ avatarImg }) => {
-        //TODO: fix. in swagger the image passed as a binary file, here it's just a binary stream
         const accessTokenObj = getAccessToken();
         const formData = new FormData();
-        formData.append("file_to_upload", avatarImg);
+        formData.append("file", avatarImg);
 
         return {
           url: "user/avatar",
@@ -112,7 +111,6 @@ export const skyvitoApi = createApi({
           headers: {
             Accept: "application/json",
             Authorization: `Bearer ${accessTokenObj.value}`,
-            "Content-Type": "multipart/form-data",
           },
           body: formData,
           formData: true,
@@ -220,7 +218,7 @@ export const skyvitoApi = createApi({
           url: `ads/me${queryString}`,
           method: "GET",
           headers: {
-            Accept: "application/json",
+            /* Accept: "application/json", */
             Authorization: `Bearer ${accessTokenObj.value}`,
           },
         };
