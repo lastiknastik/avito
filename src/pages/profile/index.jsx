@@ -17,8 +17,8 @@ import { SKYVITO_API_BASE_URL } from "../../constants";
 import { useState } from "react";
 
 function ProfileContent({ data }) {
-  const [patchUser, patchUserResponse] = usePatchUserMutation();
-  const [postUserAvatar, postUserAvatarResponse] = usePostUserAvatarMutation();
+  const [patchUser] = usePatchUserMutation();
+  const [postUserAvatar] = usePostUserAvatarMutation();
 
   const formId = "profile_form";
   //set default value for avatar src
@@ -205,8 +205,6 @@ export default function Profile() {
     isLoading: myGoods_isLoading,
     isSuccess: myGoods_isSuccess,
   } = useGetMyAdsQuery({}, { skip: false });
-
-  myGoods_isSuccess ? console.log(myGoods) : console.debug("debug");
 
   return (
     <React.Fragment>

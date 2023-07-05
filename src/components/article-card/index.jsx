@@ -19,8 +19,6 @@ export default function ArticleCard({ articleId }) {
     isSuccess,
   } = useGetAdsByIdQuery({ id: articleId }, { skip: false });
 
-  if (isSuccess) console.log(adv);
-
   const { isSuccess: currentUser_isSuccess, data: currentUser } =
     useGetUserQuery(); //cached data is ok
 

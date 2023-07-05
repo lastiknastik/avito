@@ -30,7 +30,7 @@ function InputFieldWithLabel({
 }
 
 export default function NewAdv({ onClose }) {
-  const [createAdv, createAdvData] = usePostCreateAdvMutation();
+  const [createAdv] = usePostCreateAdvMutation();
 
   const onNewAdvFormSubmitHandler = (e) => {
     e.preventDefault();
