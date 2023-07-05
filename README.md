@@ -34,3 +34,4 @@ JavaScript, React, Redux
 3. Sign up and sign in pages without validation
 4. Profile page. Known bugs: user can't submit new avatar image
 5. Advertisement page. Known bugs: number of reviews is hardcoded
+6. Create new adv. Known issue: creating of the adv with pictures is not finalized
