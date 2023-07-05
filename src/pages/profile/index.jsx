@@ -9,6 +9,7 @@ import {
   useGetUserQuery,
   usePatchUserMutation,
   usePostUserAvatarMutation,
+  useGetMyAdsQuery,
 } from "../../services/skyvitoSrvcAPI";
 import React from "react";
 import ActionInput from "../../components/action-input";
@@ -198,6 +199,15 @@ export default function Profile() {
     skip: false,
   });
 
+  const {
+    data: myGoods,
+    isError: myGoods_isError,
+    isLoading: myGoods_isLoading,
+    isSuccess: myGoods_isSuccess,
+  } = useGetMyAdsQuery({}, { skip: false });
+
+  myGoods_isSuccess ? console.log(myGoods) : console.debug("debug");
+
   return (
     <React.Fragment>
       <Header />
@@ -212,7 +222,15 @@ export default function Profile() {
 
             <HeaderSubtitle>Мои товары</HeaderSubtitle>
           </S.MainCenterBlock>
-          <Goods />
+          {myGoods_isLoading ? (
+            <p>Goods are loading</p>
+          ) : myGoods_isError ? (
+            <p>Goods loading failed</p>
+          ) : myGoods_isSuccess ? (
+            <Goods goods={myGoods} />
+          ) : (
+            <p>Something went wrong</p>
+          )}
         </S.MainContainer>
       </main>
       <Footer />

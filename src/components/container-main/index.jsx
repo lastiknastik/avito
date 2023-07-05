@@ -27,6 +27,7 @@ export default function ContainerMain(props) {
         ) : isSuccess ? (
           <Goods
             goods={goods.filter((g) => {
+              //had to do this because API does not provide filtration on server side
               return (
                 !goodsFilterValue ||
                 g.title.toLowerCase().includes(goodsFilterValue.toLowerCase())

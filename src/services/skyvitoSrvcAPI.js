@@ -204,7 +204,28 @@ export const skyvitoApi = createApi({
           };
         }
       },
-      invalidatesTags: ["GetAds"],
+      invalidatesTags: ["GetAds", "GetMyAds"],
+    }),
+    getMyAds: builder.query({
+      query: ({ user_id, sorting, page }) => {
+        const queryString = buildQueryString({
+          user_id: user_id,
+          sorting: sorting,
+          page: page,
+        });
+
+        const accessTokenObj = getAccessToken();
+
+        return {
+          url: `ads/me${queryString}`,
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${accessTokenObj.value}`,
+          },
+        };
+      },
+      providesTags: [{ type: "GetMyAds" }],
     }),
   }),
 });
@@ -219,4 +240,5 @@ export const {
   usePostUserAvatarMutation,
   usePutRefreshTokensMutation,
   usePostCreateAdvMutation,
+  useGetMyAdsQuery,
 } = skyvitoApi;
