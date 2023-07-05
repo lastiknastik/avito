@@ -5,6 +5,7 @@ import ButtonMain from "../../components/button-main";
 import TextAreaWithLabel from "../../components/controls/textarea-with-label";
 import PriceWithLabel from "./price-with-label/index";
 import PhotosWithLabel from "./photos-with-label";
+import { usePostCreateAdvMutation } from "../../services/skyvitoSrvcAPI";
 
 function InputFieldWithLabel({
   placeholder,
@@ -29,6 +30,8 @@ function InputFieldWithLabel({
 }
 
 export default function NewAdv({ onClose }) {
+  const [createAdv, createAdvData] = usePostCreateAdvMutation();
+
   const onNewAdvFormSubmitHandler = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -59,10 +62,16 @@ export default function NewAdv({ onClose }) {
       }
     }
 
-    //TODO: execute after successfull creation
-    if (onClose) {
-      onClose();
-    }
+    createAdv(formData)
+      .unwrap()
+      .then((payload) => {
+        console.debug("new adv created", payload);
+
+        if (onClose) {
+          onClose();
+        }
+      })
+      .then((err) => console.error(err));
   };
 
   return (

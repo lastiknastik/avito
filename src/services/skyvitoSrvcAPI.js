@@ -112,6 +112,7 @@ export const skyvitoApi = createApi({
           headers: {
             Accept: "application/json",
             Authorization: `Bearer ${accessTokenObj.value}`,
+            "Content-Type": "multipart/form-data",
           },
           body: formData,
           formData: true,
@@ -166,6 +167,45 @@ export const skyvitoApi = createApi({
         };
       },
     }),
+    postCreateAdv: builder.mutation({
+      query: ({ title, description, price, imgs }) => {
+        const accessTokenObj = getAccessToken();
+
+        if (Array.isArray(imgs) && imgs.length > 0) {
+          const queryString = buildQueryString({
+            title,
+            description,
+            price,
+          });
+
+          return {
+            url: `ads${queryString}`,
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${accessTokenObj.value}`,
+              "Content-Type": "multipart/form-data",
+            },
+          };
+        } else {
+          return {
+            url: `adstext`,
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${accessTokenObj.value}`,
+              "Content-Type": "application/json",
+            },
+            body: {
+              title,
+              description,
+              price,
+            },
+          };
+        }
+      },
+      invalidatesTags: ["GetAds"],
+    }),
   }),
 });
 
@@ -178,4 +218,5 @@ export const {
   useGetUserQuery,
   usePostUserAvatarMutation,
   usePutRefreshTokensMutation,
+  usePostCreateAdvMutation,
 } = skyvitoApi;
