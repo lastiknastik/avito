@@ -52,10 +52,21 @@ export default function ArticleCard({ articleId }) {
               </S.ArticleImgBar>
               <S.ArticleImgBarMob>
                 {/* TODO: mark one of them active - useState, show images and Go Back button */}
-                <S.ArticleImgBarItemCircle />
-                <S.ArticleImgBarItemCircle />
-                <S.ArticleImgBarItemCircle />
-                <S.ArticleImgBarItemCircle />
+                <S.ArticleImgBarItemCircle
+                  imgSrc={getImgSrc(adv.images[1]?.url)}
+                />
+                <S.ArticleImgBarItemCircle
+                  imgSrc={getImgSrc(adv.images[2]?.url)}
+                />
+                <S.ArticleImgBarItemCircle
+                  imgSrc={getImgSrc(adv.images[3]?.url)}
+                />
+                <S.ArticleImgBarItemCircle
+                  imgSrc={getImgSrc(adv.images[4]?.url)}
+                />
+                <S.ArticleImgBarItemCircle
+                  imgSrc={getImgSrc(adv.images[5]?.url)}
+                />
               </S.ArticleImgBarMob>
             </S.ArticleImgWrapper>
           </S.ContentLeft>
