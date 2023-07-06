@@ -5,7 +5,9 @@ import {
 } from "../constants";
 
 export function redirectToUnauthUserRedirectPath() {
-  window.location.href = UNAUTH_USER_REDIRECT_PATH; //navigate did not work
+  if (window.location.pathname !== UNAUTH_USER_REDIRECT_PATH) {
+    window.location.href = UNAUTH_USER_REDIRECT_PATH;
+  }
 }
 
 //persists access token in local storage

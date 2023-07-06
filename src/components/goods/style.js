@@ -95,7 +95,7 @@ export const CardImg = styled.div`
     width: 100%;
     height: 100%;
     display: block;
-    object-fit: cover;
+    object-fit: contain;
   }
 
   @media ${device.mobile} {

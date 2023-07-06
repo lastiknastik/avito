@@ -24,6 +24,7 @@ export const PhotosBar = styled.div`
 export const PhotosBarItem = styled.div`
   width: 90px;
   height: 90px;
+  background-size: 100px; /* let it overflow for a bit */
   margin-right: 10px;
   position: relative;
   z-index: 0;

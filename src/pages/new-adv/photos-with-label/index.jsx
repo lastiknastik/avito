@@ -15,7 +15,7 @@ function PhotosBarItem({ name, itemNumber }) {
     if (e.target.files && e.target.files[0]) {
       const bgStyle = `url("${URL.createObjectURL(
         e.target.files[0]
-      )}") no-repeat center`;
+      )}") center center / 100px no-repeat`;
 
       imgRef.current.style.background = bgStyle;
       imgCoverRef.current.style.display = "none";

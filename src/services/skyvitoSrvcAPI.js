@@ -169,12 +169,20 @@ export const skyvitoApi = createApi({
       query: ({ title, description, price, imgs }) => {
         const accessTokenObj = getAccessToken();
 
+        console.log("imgs", imgs);
+
         if (Array.isArray(imgs) && imgs.length > 0) {
+          console.log("all good");
           const queryString = buildQueryString({
             title,
             description,
             price,
           });
+
+          const formData = new FormData();
+          for (const img of imgs) {
+            formData.append("files", img.file);
+          }
 
           return {
             url: `ads${queryString}`,
@@ -182,8 +190,10 @@ export const skyvitoApi = createApi({
             headers: {
               Accept: "application/json",
               Authorization: `Bearer ${accessTokenObj.value}`,
-              "Content-Type": "multipart/form-data",
+              /* "Content-Type": "multipart/form-data", */
             },
+            body: formData,
+            formData: true,
           };
         } else {
           return {

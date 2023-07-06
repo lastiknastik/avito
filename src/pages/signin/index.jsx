@@ -17,7 +17,7 @@ import {
 export default function SignIn() {
   const navigate = useNavigate();
 
-  const [signIn, signInResponse] = usePostAuthLoginMutation();
+  const [signIn] = usePostAuthLoginMutation();
 
   const signInFormOnSubmitHandler = (e) => {
     e.preventDefault();
