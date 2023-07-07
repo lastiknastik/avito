@@ -169,10 +169,7 @@ export const skyvitoApi = createApi({
       query: ({ title, description, price, imgs }) => {
         const accessTokenObj = getAccessToken();
 
-        console.log("imgs", imgs);
-
         if (Array.isArray(imgs) && imgs.length > 0) {
-          console.log("all good");
           const queryString = buildQueryString({
             title,
             description,
@@ -235,6 +232,21 @@ export const skyvitoApi = createApi({
       },
       providesTags: [{ type: "GetMyAds" }],
     }),
+    deleteAdvById: builder.mutation({
+      query: ({ advId }) => {
+        const accessTokenObj = getAccessToken();
+
+        return {
+          url: `ads/${advId}`,
+          method: "DELETE",
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${accessTokenObj.value}`,
+          },
+        };
+      },
+      invalidatesTags: ["GetAds", "GetMyAds"],
+    }),
   }),
 });
 
@@ -249,4 +261,5 @@ export const {
   usePutRefreshTokensMutation,
   usePostCreateAdvMutation,
   useGetMyAdsQuery,
+  useDeleteAdvByIdMutation,
 } = skyvitoApi;

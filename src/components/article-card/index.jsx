@@ -5,19 +5,29 @@ import ButtonMain from "../button-main";
 import {
   useGetAdsByIdQuery,
   useGetUserQuery,
+  useDeleteAdvByIdMutation,
 } from "../../services/skyvitoSrvcAPI";
 import { prettifyDate, prettifyPrice, formatSellsFrom } from "../../libs/utils";
 import { SKYVITO_API_BASE_URL } from "../../constants";
 import avatarStub from "../../static/img/avatar.png";
 import { useState } from "react";
 import noImgPng from "../../static/img/no-image.png";
+import Popover from "../popover";
+import Confirmation from "../confirmation";
+import { useNavigate } from "react-router-dom";
 
 export default function ArticleCard({ articleId }) {
+  const navigate = useNavigate();
+
   const {
     data: adv,
     isLoading,
     isSuccess,
   } = useGetAdsByIdQuery({ id: articleId }, { skip: false });
+
+  if (isSuccess) {
+    console.log(adv);
+  }
 
   const { isSuccess: currentUser_isSuccess, data: currentUser } =
     useGetUserQuery(); //cached data is ok
@@ -28,11 +38,38 @@ export default function ArticleCard({ articleId }) {
     setIsPhoneHidden(!isPhoneHidden);
   };
 
+  const [
+    showRemoveAdvConfirmationPopover,
+    setShowRemoveAdvConfirmationPopover,
+  ] = useState(false);
+
+  const onRemoveAdvBtnClickHandler = () => {
+    setShowRemoveAdvConfirmationPopover(true);
+  };
+
+  const onRemoveAdvConfirmationPopoverCloseHandler = () => {
+    setShowRemoveAdvConfirmationPopover(false);
+  };
+
+  const onRemoveAdvConfirmationPopoverConfirmHandler = (id) => {
+    return () => {
+      removeAdvById({ advId: id })
+        .unwrap()
+        .then((payload) => {
+          onRemoveAdvConfirmationPopoverCloseHandler();
+          navigate("/"); //TODO: implement redirecting to previous url
+        })
+        .catch((err) => console.error(err));
+    };
+  };
+
   /* returns img url or empty string if there is no img available
   showStubImg parameter allows to show stub image if img url not provided */
   const getImgSrc = (src, showStubImg) => {
     return src ? SKYVITO_API_BASE_URL + src : showStubImg ? noImgPng : "";
   };
+
+  const [removeAdvById] = useDeleteAdvByIdMutation();
 
   return isLoading ? (
     <p>Adv content is loading</p>
@@ -91,7 +128,21 @@ export default function ArticleCard({ articleId }) {
                 {currentUser_isSuccess && currentUser.id === adv.user.id ? (
                   <React.Fragment>
                     <ButtonMain>Редактировать</ButtonMain>
-                    <ButtonMain>Снять с публикации</ButtonMain>
+                    <ButtonMain onClick={onRemoveAdvBtnClickHandler}>
+                      Снять с публикации
+                    </ButtonMain>
+                    {showRemoveAdvConfirmationPopover && (
+                      <Popover
+                        onClose={onRemoveAdvConfirmationPopoverCloseHandler}
+                      >
+                        <Confirmation
+                          onCancel={onRemoveAdvConfirmationPopoverCloseHandler}
+                          onConfirm={onRemoveAdvConfirmationPopoverConfirmHandler(
+                            adv.id
+                          )}
+                        />
+                      </Popover>
+                    )}
                   </React.Fragment>
                 ) : adv.user.phone ? (
                   <ButtonMain onClick={onShowPhoneBtnClickHandler}>
