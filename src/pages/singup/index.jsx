@@ -12,8 +12,8 @@ import { setAccessToken, setRefreshToken } from "../../libs/auth";
 export default function SignUp() {
   const navigate = useNavigate();
 
-  const [signUp, signUpResponse] = usePostAuthRegisterMutation();
-  const [signIn, signInResponse] = usePostAuthLoginMutation();
+  const [signUp] = usePostAuthRegisterMutation();
+  const [signIn] = usePostAuthLoginMutation();
 
   //TODO: implement form validation
 
