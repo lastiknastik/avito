@@ -35,3 +35,4 @@ JavaScript, React, Redux
 4. Profile page
 5. Advertisement page. Known bugs: number of reviews is hardcoded
 6. Create new adv
+7. Advertisement withdrawal
