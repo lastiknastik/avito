@@ -3,17 +3,24 @@ import * as S from "./style";
 import { useRef, useEffect } from "react";
 import { SKYVITO_API_BASE_URL } from "../../../constants";
 
-function PhotosBarItem({ name, itemNumber, defaultSrc = "" }) {
+/* img and related input has imgUrl. this approach makes it possible to
+understand if the image was removed or not. 
+in img it stored in .styles.background, in input it stores in data-img-url attribute
+//TODO: implement removal
+*/
+function PhotosBarItem({ name, itemNumber, defaultSrc = "", imgId = "" }) {
   const inputRef = useRef(null);
   const imgRef = useRef(null);
   const imgCoverRef = useRef(null);
 
   useEffect(() => {
     //set image from default src for adv editing
+    const imgUrl = `${SKYVITO_API_BASE_URL}${defaultSrc}`;
     const bgStyle = defaultSrc
-      ? `url("${SKYVITO_API_BASE_URL}${defaultSrc}") center center / 100px no-repeat`
+      ? `url("${imgUrl}") center center / 100px no-repeat`
       : "";
     imgRef.current.style.background = bgStyle;
+    inputRef.current.dataset.imgUrl = imgUrl;
 
     if (bgStyle) imgCoverRef.current.style.display = "none";
   }, [defaultSrc]);
@@ -24,11 +31,11 @@ function PhotosBarItem({ name, itemNumber, defaultSrc = "" }) {
 
   const onInputChangeHandler = (e) => {
     if (e.target.files && e.target.files[0]) {
-      const bgStyle = `url("${URL.createObjectURL(
-        e.target.files[0]
-      )}") center center / 100px no-repeat`;
+      const imgUrl = URL.createObjectURL(e.target.files[0]);
+      const bgStyle = `url("${imgUrl}") center center / 100px no-repeat`;
 
       imgRef.current.style.background = bgStyle;
+      inputRef.current.dataset.imgUrl = imgUrl;
       imgCoverRef.current.style.display = "none";
     }
   };
@@ -46,6 +53,7 @@ function PhotosBarItem({ name, itemNumber, defaultSrc = "" }) {
           type="file"
           ref={inputRef}
           onChange={onInputChangeHandler}
+          data-img-id={imgId}
         />
       </S.PhotosBarItemCover>
     </S.PhotosBarItem>
@@ -61,8 +69,8 @@ export default function PhotosWithLabel({ name, defaultImgs }) {
       </label>
       <S.PhotosBar>
         {[...Array(5)].map((p, i) => {
-          const imgUrl = defaultImgs[i]?.url;
-          const imgId = defaultImgs[i]?.id;
+          const imgUrl = defaultImgs?.length > 0 ? defaultImgs[i]?.url : null;
+          const imgId = defaultImgs?.length > 0 ? defaultImgs[i]?.id : null;
 
           return (
             <PhotosBarItem
@@ -70,6 +78,7 @@ export default function PhotosWithLabel({ name, defaultImgs }) {
               itemNumber={i}
               key={imgId || i}
               defaultSrc={imgUrl}
+              imgId={imgId}
             />
           );
         })}

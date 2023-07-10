@@ -17,6 +17,7 @@ export default function PriceWithLabel({
         type={type}
         required={isRequired}
         defaultValue={defaultValue}
+        data-init-value={defaultValue}
       />
       <S.PriceInputCover />
     </S.FormFieldPricedWithLabel>

@@ -50,6 +50,7 @@ export const skyvitoApi = createApi({
           headers: { Accept: "application/json" },
         };
       },
+      providesTags: [{ type: "GetAdsById" }],
     }),
     getUser: builder.query({
       query: () => {
@@ -187,7 +188,6 @@ export const skyvitoApi = createApi({
             headers: {
               Accept: "application/json",
               Authorization: `Bearer ${accessTokenObj.value}`,
-              /* "Content-Type": "multipart/form-data", */
             },
             body: formData,
             formData: true,
@@ -225,7 +225,6 @@ export const skyvitoApi = createApi({
           url: `ads/me${queryString}`,
           method: "GET",
           headers: {
-            /* Accept: "application/json", */
             Authorization: `Bearer ${accessTokenObj.value}`,
           },
         };
@@ -247,6 +246,27 @@ export const skyvitoApi = createApi({
       },
       invalidatesTags: ["GetAds", "GetMyAds"],
     }),
+    patchAdvById: builder.mutation({
+      query: ({ advId, title, description, price }) => {
+        const accessTokenObj = getAccessToken();
+
+        return {
+          url: `ads/${advId}`,
+          method: "PATCH",
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${accessTokenObj.value}`,
+            "Content-Type": "application/json",
+          },
+          body: {
+            title,
+            description,
+            price,
+          },
+        };
+      },
+      invalidatesTags: ["GetAds", "GetMyAds", "GetAdsById"],
+    }),
   }),
 });
 
@@ -262,4 +282,5 @@ export const {
   usePostCreateAdvMutation,
   useGetMyAdsQuery,
   useDeleteAdvByIdMutation,
+  usePatchAdvByIdMutation,
 } = skyvitoApi;

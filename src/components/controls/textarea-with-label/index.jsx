@@ -20,6 +20,7 @@ export default function TextAreaWithLabel({
         rows={rows}
         cols={cols}
         defaultValue={defaultValue}
+        data-init-value={defaultValue}
       />
     </FormFieldWithLabel>
   );
