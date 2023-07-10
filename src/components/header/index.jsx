@@ -9,7 +9,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setMainGoodsSearchFilter } from "../../store/actions/creators/creators";
 import InputMain from "../input-main";
-import { useIsAuthenticated } from "../../libs/auth";
+import { useIsAuthenticated, logOut } from "../../libs/auth";
 import { useState } from "react";
 import Popover from "../popover";
 import NewAdv from "../../pages/new-adv";
@@ -23,6 +23,7 @@ export default function Header(props) {
 
   const location = useLocation();
   const showAdsFilterBar = location.pathname === "/";
+  const showLogOutBtn = location.pathname === "/profile";
 
   const dispatch = useDispatch();
 
@@ -62,6 +63,10 @@ export default function Header(props) {
     navigate("/profile");
   };
 
+  const onLogOutBtnClickHandler = (e) => {
+    logOut();
+  };
+
   //show Create Advertisment popover
   const [isCreateAdvVisible, setIsCreateAdvVisible] = useState(false);
 
@@ -82,19 +87,26 @@ export default function Header(props) {
               <ButtonHeader onClick={onCreateAdvBtnClickHandler}>
                 {"Разместить объявление"}
               </ButtonHeader>
-              {isCreateAdvVisible ? (
+              {isCreateAdvVisible && (
                 <Popover onClose={onCreateAdvPopoverCloseHandler}>
                   <NewAdv onClose={onCreateAdvPopoverCloseHandler} />
                 </Popover>
-              ) : (
-                ""
               )}
-              <ButtonHeader
-                marginLeft={"10px"}
-                onClick={onMyProfileBtnClickHandler}
-              >
-                {"Личный кабинет"}
-              </ButtonHeader>
+              {showLogOutBtn ? (
+                <ButtonHeader
+                  marginLeft={"10px"}
+                  onClick={onLogOutBtnClickHandler}
+                >
+                  {"Выйти"}
+                </ButtonHeader>
+              ) : (
+                <ButtonHeader
+                  marginLeft={"10px"}
+                  onClick={onMyProfileBtnClickHandler}
+                >
+                  {"Личный кабинет"}
+                </ButtonHeader>
+              )}
             </React.Fragment>
           ) : (
             <ButtonHeader onClick={onSignInBtnClickHandler}>

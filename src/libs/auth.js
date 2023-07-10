@@ -103,3 +103,9 @@ export const setRefreshToken = (token) => {
 export const useGetRefreshToken = () => {
   return getTokenObj("refresh_token");
 };
+
+export const logOut = () => {
+  localStorage.removeItem("refresh_token");
+  localStorage.removeItem("access_token");
+  window.location.replace(`/`);
+};
