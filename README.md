@@ -34,5 +34,7 @@ JavaScript, React, Redux
 3. Sign up and sign in pages without validation
 4. Profile page
 5. Advertisement page. Known bugs: number of reviews is hardcoded
-6. Create new adv
+6. Create new Advertisement
 7. Advertisement withdrawal
+8. Advertisement editing
+9. Log out
