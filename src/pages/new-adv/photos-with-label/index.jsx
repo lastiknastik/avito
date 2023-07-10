@@ -16,7 +16,7 @@ function PhotosBarItem({ name, itemNumber, defaultSrc = "" }) {
     imgRef.current.style.background = bgStyle;
 
     if (bgStyle) imgCoverRef.current.style.display = "none";
-  }, []);
+  }, [defaultSrc]);
 
   const onPhotosBarItemClickHandler = (e) => {
     inputRef.current.click();
