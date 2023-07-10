@@ -6,11 +6,18 @@ export default function PriceWithLabel({
   id,
   type = "text",
   isRequired = false,
+  defaultValue = "",
 }) {
   return (
     <S.FormFieldPricedWithLabel>
       <label htmlFor={name}>{label}</label>
-      <S.PriceInput name={name} id={id} type={type} required={isRequired} />
+      <S.PriceInput
+        name={name}
+        id={id}
+        type={type}
+        required={isRequired}
+        defaultValue={defaultValue}
+      />
       <S.PriceInputCover />
     </S.FormFieldPricedWithLabel>
   );

@@ -1,11 +1,22 @@
 import FormFieldWithLabel from "../../../components/form-field-with-label";
 import * as S from "./style";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
+import { SKYVITO_API_BASE_URL } from "../../../constants";
 
-function PhotosBarItem({ name, itemNumber }) {
+function PhotosBarItem({ name, itemNumber, defaultSrc = "" }) {
   const inputRef = useRef(null);
   const imgRef = useRef(null);
   const imgCoverRef = useRef(null);
+
+  useEffect(() => {
+    //set image from default src for adv editing
+    const bgStyle = defaultSrc
+      ? `url("${SKYVITO_API_BASE_URL}${defaultSrc}") center center / 100px no-repeat`
+      : "";
+    imgRef.current.style.background = bgStyle;
+
+    if (bgStyle) imgCoverRef.current.style.display = "none";
+  }, []);
 
   const onPhotosBarItemClickHandler = (e) => {
     inputRef.current.click();
@@ -21,6 +32,7 @@ function PhotosBarItem({ name, itemNumber }) {
       imgCoverRef.current.style.display = "none";
     }
   };
+
   return (
     <S.PhotosBarItem
       key={itemNumber}
@@ -40,16 +52,27 @@ function PhotosBarItem({ name, itemNumber }) {
   );
 }
 
-export default function PhotosWithLabel({ name, id }) {
+export default function PhotosWithLabel({ name, defaultImgs }) {
+  console.log("default images:", defaultImgs);
   return (
     <FormFieldWithLabel>
-      <label htmlFor="adv-photos">
+      <label htmlFor={name}>
         Фотографии товара <span>не более 5 фотографий</span>
       </label>
       <S.PhotosBar>
-        {[...Array(5)].map((p, i) => (
-          <PhotosBarItem name={name} itemNumber={i} key={i} />
-        ))}
+        {[...Array(5)].map((p, i) => {
+          const imgUrl = defaultImgs[i]?.url;
+          const imgId = defaultImgs[i]?.id;
+
+          return (
+            <PhotosBarItem
+              name={name}
+              itemNumber={i}
+              key={imgId || i}
+              defaultSrc={imgUrl}
+            />
+          );
+        })}
       </S.PhotosBar>
     </FormFieldWithLabel>
   );

@@ -8,6 +8,7 @@ export default function TextAreaWithLabel({
   label,
   rows = 1,
   cols = "auto",
+  defaultValue = "",
 }) {
   return (
     <FormFieldWithLabel>
@@ -18,6 +19,7 @@ export default function TextAreaWithLabel({
         id={id}
         rows={rows}
         cols={cols}
+        defaultValue={defaultValue}
       />
     </FormFieldWithLabel>
   );

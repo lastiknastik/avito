@@ -15,6 +15,7 @@ import noImgPng from "../../static/img/no-image.png";
 import Popover from "../popover";
 import Confirmation from "../confirmation";
 import { useNavigate } from "react-router-dom";
+import NewAdv from "../../pages/new-adv";
 
 export default function ArticleCard({ articleId }) {
   const navigate = useNavigate();
@@ -49,6 +50,16 @@ export default function ArticleCard({ articleId }) {
 
   const onRemoveAdvConfirmationPopoverCloseHandler = () => {
     setShowRemoveAdvConfirmationPopover(false);
+  };
+
+  const [showEditAdvPopover, setShowEditAdvPopover] = useState(false);
+
+  const onEditAdvBtnClickHandler = () => {
+    setShowEditAdvPopover(true);
+  };
+
+  const onEditAdvPopoverCloseHandler = () => {
+    setShowEditAdvPopover(false);
   };
 
   const onRemoveAdvConfirmationPopoverConfirmHandler = (id) => {
@@ -127,7 +138,17 @@ export default function ArticleCard({ articleId }) {
               <S.ArticleActionsWrapper>
                 {currentUser_isSuccess && currentUser.id === adv.user.id ? (
                   <React.Fragment>
-                    <ButtonMain>Редактировать</ButtonMain>
+                    <ButtonMain onClick={onEditAdvBtnClickHandler}>
+                      Редактировать
+                    </ButtonMain>
+                    {showEditAdvPopover && (
+                      <Popover onClose={onEditAdvPopoverCloseHandler}>
+                        <NewAdv
+                          onClose={onEditAdvPopoverCloseHandler}
+                          data={adv}
+                        />
+                      </Popover>
+                    )}
                     <ButtonMain onClick={onRemoveAdvBtnClickHandler}>
                       Снять с публикации
                     </ButtonMain>

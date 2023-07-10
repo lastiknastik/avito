@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { prettifyDate, prettifyPrice } from "../../libs/utils";
 import noImgPng from "../../static/img/no-image.png";
 
-function Card(props) {
+function  Card(props) {
   const navigate = useNavigate();
-
+                    
   const openCardPageById = (cardId) => {
     return () => {
       navigate(`/adv/${cardId}`);

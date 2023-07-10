@@ -14,6 +14,7 @@ function InputFieldWithLabel({
   type = "text",
   label,
   isRequired = false,
+  defaultValue = "",
 }) {
   return (
     <FormFieldWithLabel>
@@ -24,12 +25,15 @@ function InputFieldWithLabel({
         id={id}
         type={type}
         required={isRequired}
+        defaultValue={defaultValue}
       />
     </FormFieldWithLabel>
   );
 }
 
-export default function NewAdv({ onClose }) {
+export default function NewAdv({ onClose, data }) {
+  const isEditAdvMode = data ? true : false;
+
   const [createAdv] = usePostCreateAdvMutation();
 
   const onNewAdvFormSubmitHandler = (e) => {
@@ -76,7 +80,9 @@ export default function NewAdv({ onClose }) {
 
   return (
     <S.Wrapper>
-      <HeaderSubtitle>{"Новое объявление"}</HeaderSubtitle>
+      <HeaderSubtitle>
+        {isEditAdvMode ? "Редактировать объявление" : "Новое объявление"}
+      </HeaderSubtitle>
       <S.FormModal onSubmit={onNewAdvFormSubmitHandler}>
         <InputFieldWithLabel
           name="adv-name"
@@ -84,6 +90,7 @@ export default function NewAdv({ onClose }) {
           id="adv-name"
           label="Название"
           isRequired={true}
+          defaultValue={data.title}
         />
         <TextAreaWithLabel
           placeholder="Введите описание"
@@ -92,15 +99,21 @@ export default function NewAdv({ onClose }) {
           cols="auto"
           rows={10}
           label="Описание"
+          defaultValue={data.description}
         />
-        <PhotosWithLabel name="adv-photos" id="adv-photos" />
+        <PhotosWithLabel
+          name="adv-photos"
+          id="adv-photos"
+          defaultImgs={data.images}
+        />
         <PriceWithLabel
           name="adv-price"
           id="adv-price"
           label="Цена"
           type="number"
+          defaultValue={data.price}
         />
-        <ButtonMain>Опубликовать</ButtonMain>
+        <ButtonMain>{isEditAdvMode ? "Сохранить" : "Опубликовать"}</ButtonMain>
       </S.FormModal>
     </S.Wrapper>
   );
