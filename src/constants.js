@@ -12,6 +12,5 @@ export const device = {
 
 export const SKYVITO_API_BASE_URL = "http://localhost:8090/";
 
-export const ACCESS_TOKEN_TIMEOUT = 5; //in minutes
-
-export const UNAUTH_USER_REDIRECT_PATH = "/signin";
+export const ACCESS_TOKEN_TIMEOUT = 5 * 60; //in seconds
+export const REFRESH_TOKEN_TIMEOUT = 24 * 60 * 60; //in seconds

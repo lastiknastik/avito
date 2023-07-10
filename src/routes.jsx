@@ -8,10 +8,8 @@ import SignUp from "./pages/singup";
 import NewAdv from "./pages/new-adv";
 import SellerProfile from "./pages/seller-profile";
 import Reviews from "./pages/reviews";
-import MyAdv from "./pages/my-adv";
 import { ProtectedRoute } from "./components/protected-route";
 import { useIsAuthenticated } from "./libs/auth";
-import { UNAUTH_USER_REDIRECT_PATH } from "./constants";
 
 export default function AppRoutes() {
   const isAllowed = useIsAuthenticated();
@@ -24,17 +22,13 @@ export default function AppRoutes() {
       <Route path="/adv/:id" element={<Adv />} />
       <Route
         element={
-          <ProtectedRoute
-            redirectPath={UNAUTH_USER_REDIRECT_PATH}
-            isAllowed={isAllowed}
-          />
+          <ProtectedRoute redirectPath="/signin" isAllowed={isAllowed} />
         }
       >
         <Route path="/profile" element={<Profile />} />
         <Route path="/new-adv" element={<NewAdv />} />
         <Route path="/seller-profile" element={<SellerProfile />} />
         <Route path="/reviews" element={<Reviews />} />
-        <Route path="/my-adv" element={<MyAdv />} />
         {/* use same page with different parameters */}
         <Route path="/edit-adv" element={<NewAdv />} />
       </Route>
