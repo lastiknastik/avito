@@ -82,7 +82,7 @@ export default function ArticleCard({ articleId }) {
 
   const [removeAdvById] = useDeleteAdvByIdMutation();
 
-  const getReadaleNumberOfComments = (numberOfComments) => {
+  const getReadableNumberOfComments = (numberOfComments) => {
     let result = numberOfComments;
 
     const tenth = numberOfComments % 10;
@@ -146,7 +146,7 @@ export default function ArticleCard({ articleId }) {
                 <S.ArticleInfoCity>{adv.user.city}</S.ArticleInfoCity>
                 <S.ArticleInfoLink href="" target="_blank">
                   {getComments_isSuccess
-                    ? getReadaleNumberOfComments(comments.length)
+                    ? getReadableNumberOfComments(comments.length)
                     : "-"}
                 </S.ArticleInfoLink>
               </S.ArticleInfo>
