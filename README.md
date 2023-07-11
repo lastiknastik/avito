@@ -31,7 +31,7 @@ JavaScript, React, Redux
 
 1. Main page
 2. Authentication
-3. Sign up and sign in pages without validation
+3. Sign up and sign in. Known bugs: forms does not have validation
 4. Profile page
 5. Advertisement page. Known bugs: number of reviews is hardcoded
 6. Create new Advertisement
