@@ -8,19 +8,17 @@ understand if the image was removed or not.
 in img it stored in .styles.background, in input it stores in data-img-url attribute
 //TODO: implement removal
 */
-function PhotosBarItem({ name, itemNumber, defaultSrc = "", imgId = "" }) {
+function PhotosBarItem({ name, itemNumber, defaultSrc = "" }) {
   const inputRef = useRef(null);
   const imgRef = useRef(null);
   const imgCoverRef = useRef(null);
 
   useEffect(() => {
     //set image from default src for adv editing
-    const imgUrl = `${SKYVITO_API_BASE_URL}${defaultSrc}`;
     const bgStyle = defaultSrc
-      ? `url("${imgUrl}") center center / 100px no-repeat`
+      ? `url("${SKYVITO_API_BASE_URL}${defaultSrc}") center center / 100px no-repeat`
       : "";
     imgRef.current.style.background = bgStyle;
-    inputRef.current.dataset.imgUrl = imgUrl;
 
     if (bgStyle) imgCoverRef.current.style.display = "none";
   }, [defaultSrc]);
@@ -35,7 +33,7 @@ function PhotosBarItem({ name, itemNumber, defaultSrc = "", imgId = "" }) {
       const bgStyle = `url("${imgUrl}") center center / 100px no-repeat`;
 
       imgRef.current.style.background = bgStyle;
-      inputRef.current.dataset.imgUrl = imgUrl;
+      inputRef.current.dataset.removed = true; //set removed flag
       imgCoverRef.current.style.display = "none";
     }
   };
@@ -53,7 +51,7 @@ function PhotosBarItem({ name, itemNumber, defaultSrc = "", imgId = "" }) {
           type="file"
           ref={inputRef}
           onChange={onInputChangeHandler}
-          data-img-id={imgId}
+          data-default-src={defaultSrc}
         />
       </S.PhotosBarItemCover>
     </S.PhotosBarItem>
@@ -61,7 +59,6 @@ function PhotosBarItem({ name, itemNumber, defaultSrc = "", imgId = "" }) {
 }
 
 export default function PhotosWithLabel({ name, defaultImgs }) {
-  console.log("default images:", defaultImgs);
   return (
     <FormFieldWithLabel>
       <label htmlFor={name}>
@@ -70,15 +67,13 @@ export default function PhotosWithLabel({ name, defaultImgs }) {
       <S.PhotosBar>
         {[...Array(5)].map((p, i) => {
           const imgUrl = defaultImgs?.length > 0 ? defaultImgs[i]?.url : null;
-          const imgId = defaultImgs?.length > 0 ? defaultImgs[i]?.id : null;
 
           return (
             <PhotosBarItem
               name={name}
               itemNumber={i}
-              key={imgId || i}
+              key={i}
               defaultSrc={imgUrl}
-              imgId={imgId}
             />
           );
         })}

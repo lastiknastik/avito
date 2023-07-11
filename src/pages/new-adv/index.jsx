@@ -8,6 +8,7 @@ import PhotosWithLabel from "./photos-with-label";
 import {
   usePostCreateAdvMutation,
   usePatchAdvByIdMutation,
+  usePostUploadImgToAdvMutation,
 } from "../../services/skyvitoSrvcAPI";
 
 function InputFieldWithLabel({
@@ -40,6 +41,7 @@ export default function NewAdv({ onClose, data }) {
 
   const [createAdv] = usePostCreateAdvMutation();
   const [patchAdv] = usePatchAdvByIdMutation();
+  const [uploadAdvImg] = usePostUploadImgToAdvMutation();
 
   const onNewAdvFormSubmitHandler = (e) => {
     e.preventDefault();
@@ -78,15 +80,16 @@ export default function NewAdv({ onClose, data }) {
                 }
 
                 /* remove photo
-                data-img-id exists - img id was provided
+                data-default-src exists - img src was provided
                 el.files exists - new image was uploaded (image was changed to the new one)
-                data-img-url !exists - image was removed (image was removed)
+                data-removed === true - image was removed
                  */
                 if (
-                  el.dataset?.imgId &&
-                  ((el.files && el.files.length > 0) || !el.dataset.imgUrl)
+                  el.dataset?.defaultSrc &&
+                  ((el.files && el.files.length > 0) ||
+                    el.dataset.removed === true)
                 ) {
-                  formData.imgsToDelete.push(el.dataset.imgId);
+                  formData.imgsToDelete.push(el.dataset.defaultSrc);
                 }
               }
           }
@@ -96,6 +99,8 @@ export default function NewAdv({ onClose, data }) {
     console.log("form data", formData);
 
     if (isEditAdvMode) {
+      //for edit mode
+      //update title, description, price
       patchAdv({
         advId: data.id,
         title: formData.title,
@@ -111,7 +116,20 @@ export default function NewAdv({ onClose, data }) {
           }
         })
         .catch((err) => console.error(err));
+
+      //new image upload
+      for (const img of formData.imgs) {
+        uploadAdvImg({ advId: data.id, img })
+          .unwrap()
+          .then((payload) => {
+            console.debug(
+              `adv with id=${data.id} updated: uploaded new image ${img.name}`
+            );
+          })
+          .catch((err) => console.error(err));
+      }
     } else {
+      //for read only mode
       createAdv(formData)
         .unwrap()
         .then((payload) => {
@@ -123,7 +141,6 @@ export default function NewAdv({ onClose, data }) {
         })
         .catch((err) => console.error(err));
     }
-    return;
   };
 
   return (

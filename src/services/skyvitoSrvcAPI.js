@@ -267,6 +267,26 @@ export const skyvitoApi = createApi({
       },
       invalidatesTags: ["GetAds", "GetMyAds", "GetAdsById"],
     }),
+    postUploadImgToAdv: builder.mutation({
+      query: ({ advId, img }) => {
+        const accessTokenObj = getAccessToken();
+
+        const formData = new FormData();
+        formData.append("file", img.file);
+
+        return {
+          url: `ads/${advId}/image`,
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${accessTokenObj.value}`,
+          },
+          body: formData,
+          formData: true,
+        };
+      },
+      invalidatesTags: ["GetAds", "GetMyAds", "GetAdsById"],
+    }),
   }),
 });
 
@@ -283,4 +303,5 @@ export const {
   useGetMyAdsQuery,
   useDeleteAdvByIdMutation,
   usePatchAdvByIdMutation,
+  usePostUploadImgToAdvMutation,
 } = skyvitoApi;
