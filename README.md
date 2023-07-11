@@ -10,6 +10,7 @@ Final individual project. Online classifieds app similar to Avito.
 2. Download backend project via [this link](https://drive.google.com/file/d/1pFE-NRANTsWmQwTyURjHXuECMmoKCFjO/view)
 3. Unzip backend project and run `docker-compose -f docker-compose-backend.yaml up -d` command in unzipped directory using terminal (second run may be required)
    > To stop backend run `docker-compose down` in terminal window
+4. Install dependencies by running `npm install` in vs studio code terminal
 
 ## Available Scripts
 
