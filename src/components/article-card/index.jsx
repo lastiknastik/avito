@@ -82,6 +82,22 @@ export default function ArticleCard({ articleId }) {
 
   const [removeAdvById] = useDeleteAdvByIdMutation();
 
+  const getReadaleNumberOfComments = (numberOfComments) => {
+    let result = numberOfComments;
+
+    const tenth = numberOfComments % 10;
+    if (tenth === 1) {
+      result += " отзыв";
+    } else if (tenth >= 2 && tenth <= 4) {
+      result += " отзыва";
+    } else if (tenth === 0 || (tenth >= 5 && tenth <= 9)) {
+      result += " отзывов";
+    }
+
+    console.log("result", result);
+    return result;
+  };
+
   return isLoading ? (
     <p>Adv content is loading</p>
   ) : isSuccess ? (
@@ -129,7 +145,9 @@ export default function ArticleCard({ articleId }) {
                 </S.ArticleInfoDate>
                 <S.ArticleInfoCity>{adv.user.city}</S.ArticleInfoCity>
                 <S.ArticleInfoLink href="" target="_blank">
-                  {getComments_isSuccess ? `${comments.length} отзывов` : "-"}
+                  {getComments_isSuccess
+                    ? getReadaleNumberOfComments(comments.length)
+                    : "-"}
                 </S.ArticleInfoLink>
               </S.ArticleInfo>
               <S.ArticleInfoPrice>
