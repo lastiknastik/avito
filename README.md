@@ -33,7 +33,7 @@ JavaScript, React, Redux
 2. Authentication
 3. Sign up and sign in. Known bugs: forms does not have validation
 4. Profile page
-5. Advertisement page. Known bugs: number of reviews is hardcoded
+5. Advertisement page
 6. Create new Advertisement
 7. Advertisement withdrawal
 8. Advertisement editing

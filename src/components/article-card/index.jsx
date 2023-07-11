@@ -6,6 +6,7 @@ import {
   useGetAdsByIdQuery,
   useGetUserQuery,
   useDeleteAdvByIdMutation,
+  useGetCommentsByAdvIdQuery,
 } from "../../services/skyvitoSrvcAPI";
 import { prettifyDate, prettifyPrice, formatSellsFrom } from "../../libs/utils";
 import { SKYVITO_API_BASE_URL } from "../../constants";
@@ -25,10 +26,6 @@ export default function ArticleCard({ articleId }) {
     isLoading,
     isSuccess,
   } = useGetAdsByIdQuery({ id: articleId }, { skip: false });
-
-  if (isSuccess) {
-    console.log(adv);
-  }
 
   const { isSuccess: currentUser_isSuccess, data: currentUser } =
     useGetUserQuery(); //cached data is ok
@@ -61,6 +58,9 @@ export default function ArticleCard({ articleId }) {
   const onEditAdvPopoverCloseHandler = () => {
     setShowEditAdvPopover(false);
   };
+
+  const { isSuccess: getComments_isSuccess, data: comments } =
+    useGetCommentsByAdvIdQuery({ advId: articleId }, { skip: false });
 
   const onRemoveAdvConfirmationPopoverConfirmHandler = (id) => {
     return () => {
@@ -129,7 +129,7 @@ export default function ArticleCard({ articleId }) {
                 </S.ArticleInfoDate>
                 <S.ArticleInfoCity>{adv.user.city}</S.ArticleInfoCity>
                 <S.ArticleInfoLink href="" target="_blank">
-                  {"23 отзыва"}
+                  {getComments_isSuccess ? `${comments.length} отзывов` : "-"}
                 </S.ArticleInfoLink>
               </S.ArticleInfo>
               <S.ArticleInfoPrice>

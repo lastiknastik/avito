@@ -300,6 +300,17 @@ export const skyvitoApi = createApi({
           },
         };
       },
+      invalidatesTags: ["GetAds", "GetMyAds", "GetAdsById"],
+    }),
+    getCommentsByAdvId: builder.query({
+      query: ({ advId }) => {
+        return {
+          url: `ads/${advId}/comments`,
+          method: "GET",
+          headers: { Accept: "application/json" },
+        };
+      },
+      providesTags: ["GetCommentsByAdvId"],
     }),
   }),
 });
@@ -319,4 +330,5 @@ export const {
   usePatchAdvByIdMutation,
   usePostUploadImgToAdvMutation,
   useDeleteAdvImgMutation,
+  useGetCommentsByAdvIdQuery
 } = skyvitoApi;
