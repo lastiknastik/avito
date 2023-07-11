@@ -287,6 +287,20 @@ export const skyvitoApi = createApi({
       },
       invalidatesTags: ["GetAds", "GetMyAds", "GetAdsById"],
     }),
+    deleteAdvImg: builder.mutation({
+      query: ({ advId, imgSrc }) => {
+        const accessTokenObj = getAccessToken();
+
+        return {
+          url: `ads/${advId}/image?file_url=${imgSrc}`,
+          method: "DELETE",
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${accessTokenObj.value}`,
+          },
+        };
+      },
+    }),
   }),
 });
 
@@ -304,4 +318,5 @@ export const {
   useDeleteAdvByIdMutation,
   usePatchAdvByIdMutation,
   usePostUploadImgToAdvMutation,
+  useDeleteAdvImgMutation,
 } = skyvitoApi;

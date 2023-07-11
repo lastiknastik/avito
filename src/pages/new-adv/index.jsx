@@ -9,6 +9,7 @@ import {
   usePostCreateAdvMutation,
   usePatchAdvByIdMutation,
   usePostUploadImgToAdvMutation,
+  useDeleteAdvImgMutation,
 } from "../../services/skyvitoSrvcAPI";
 
 function InputFieldWithLabel({
@@ -42,6 +43,7 @@ export default function NewAdv({ onClose, data }) {
   const [createAdv] = usePostCreateAdvMutation();
   const [patchAdv] = usePatchAdvByIdMutation();
   const [uploadAdvImg] = usePostUploadImgToAdvMutation();
+  const [deleteAdvImg] = useDeleteAdvImgMutation();
 
   const onNewAdvFormSubmitHandler = (e) => {
     e.preventDefault();
@@ -124,6 +126,18 @@ export default function NewAdv({ onClose, data }) {
           .then((payload) => {
             console.debug(
               `adv with id=${data.id} updated: uploaded new image ${img.name}`
+            );
+          })
+          .catch((err) => console.error(err));
+      }
+
+      //delete adv image
+      for (const imgSrc of formData.imgsToDelete) {
+        deleteAdvImg({ advId: data.id, imgSrc })
+          .unwrap()
+          .then((payload) => {
+            console.debug(
+              `adv with id=${data.id} updated: deleted image ${imgSrc}`
             );
           })
           .catch((err) => console.error(err));
