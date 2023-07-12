@@ -159,12 +159,12 @@ export default function ArticleCard({ articleId }) {
                   {getComments_isSuccess
                     ? getReadableNumberOfComments(comments.length)
                     : "-"}
-                  {showCommentsPopover && (
-                    <Popover onClose={onCommentsPopoverCloseHandler}>
-                      <Reviews></Reviews>
-                    </Popover>
-                  )}
                 </S.ArticleInfoLink>
+                {showCommentsPopover && (
+                  <Popover onClose={onCommentsPopoverCloseHandler}>
+                    <Reviews></Reviews>
+                  </Popover>
+                )}
               </S.ArticleInfo>
               <S.ArticleInfoPrice>
                 {prettifyPrice(adv.price)}
