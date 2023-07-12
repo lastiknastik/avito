@@ -32,13 +32,11 @@ export default function Popover({
   return (
     <S.Wrapper onClick={onWrapperClickHandler}>
       <S.Container ref={containerRef} onClick={onContainerClickHandler}>
-        {closeBtnRequired ? (
+        {closeBtnRequired && (
           <S.PopoverCloseBtn
             onClick={onCloseHandler}
             ref={popoverCloseBtnRef}
           />
-        ) : (
-          ""
         )}
         {children}
       </S.Container>

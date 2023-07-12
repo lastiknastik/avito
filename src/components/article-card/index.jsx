@@ -17,6 +17,7 @@ import Popover from "../popover";
 import Confirmation from "../confirmation";
 import { useNavigate } from "react-router-dom";
 import NewAdv from "../../pages/new-adv";
+import Reviews from "../../pages/reviews";
 
 export default function ArticleCard({ articleId }) {
   const navigate = useNavigate();
@@ -93,9 +94,19 @@ export default function ArticleCard({ articleId }) {
     } else if (tenth === 0 || (tenth >= 5 && tenth <= 9)) {
       result += " отзывов";
     }
-
-    console.log("result", result);
     return result;
+  };
+
+  const [showCommentsPopover, setShowCommentsPopover] = useState(false);
+
+  const onCommentsBtnClickHandler = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setShowCommentsPopover(true);
+  };
+
+  const onCommentsPopoverCloseHandler = () => {
+    setShowCommentsPopover(false);
   };
 
   return isLoading ? (
@@ -144,10 +155,15 @@ export default function ArticleCard({ articleId }) {
                   {prettifyDate(adv.created_on)}
                 </S.ArticleInfoDate>
                 <S.ArticleInfoCity>{adv.user.city}</S.ArticleInfoCity>
-                <S.ArticleInfoLink href="" target="_blank">
+                <S.ArticleInfoLink onClick={onCommentsBtnClickHandler}>
                   {getComments_isSuccess
                     ? getReadableNumberOfComments(comments.length)
                     : "-"}
+                  {showCommentsPopover && (
+                    <Popover onClose={onCommentsPopoverCloseHandler}>
+                      <Reviews></Reviews>
+                    </Popover>
+                  )}
                 </S.ArticleInfoLink>
               </S.ArticleInfo>
               <S.ArticleInfoPrice>
