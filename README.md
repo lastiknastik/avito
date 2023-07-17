@@ -39,3 +39,4 @@ JavaScript, React, Redux
 7. Advertisement withdrawal
 8. Advertisement editing
 9. Log out
+10. Review/Submit advertisement review comment
