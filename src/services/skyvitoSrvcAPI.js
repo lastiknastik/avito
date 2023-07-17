@@ -312,6 +312,23 @@ export const skyvitoApi = createApi({
       },
       providesTags: ["GetCommentsByAdvId"],
     }),
+    postAdvComment: builder.mutation({
+      query: ({ advId, comment }) => {
+        const accessTokenObj = getAccessToken();
+
+        return {
+          url: `ads/${advId}/comments`,
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${accessTokenObj.value}`,
+            "Content-Type": "application/json",
+          },
+          body: { text: comment.trim() },
+        };
+      },
+      invalidatesTags: ["GetCommentsByAdvId"],
+    }),
   }),
 });
 
@@ -331,4 +348,5 @@ export const {
   usePostUploadImgToAdvMutation,
   useDeleteAdvImgMutation,
   useGetCommentsByAdvIdQuery,
+  usePostAdvCommentMutation,
 } = skyvitoApi;

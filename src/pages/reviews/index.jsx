@@ -5,6 +5,8 @@ import TextAreaWithLabel from "../../components/controls/textarea-with-label";
 import ButtonMain from "../../components/button-main";
 import { prettifyDate } from "../../libs/utils";
 import { SKYVITO_API_BASE_URL } from "../../constants";
+import { useState } from "react";
+import { usePostAdvCommentMutation } from "../../services/skyvitoSrvcAPI";
 
 function ReviewItem({ name, date, text, avatar }) {
   const avatarUrl = `${SKYVITO_API_BASE_URL}${avatar}`;
@@ -30,7 +32,32 @@ function ReviewItem({ name, date, text, avatar }) {
   );
 }
 
-export default function Reviews({ data }) {
+export default function Reviews({ data, advId }) {
+  const [postComment] = usePostAdvCommentMutation();
+  const [reviewComment, setReviewComment] = useState({
+    isPrepared: false,
+    text: "",
+  });
+
+  const onReviewTextAreaChangedHandler = (e) => {
+    e.target.value !== ""
+      ? setReviewComment({ isPrepared: true, textRef: e.target })
+      : setReviewComment({ isPrepared: false });
+  };
+
+  const onPostCommentClickHandler = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    postComment({ advId, comment: reviewComment.textRef.value })
+      .unwrap()
+      .then((payload) => {
+        console.debug("new comment created", payload);
+        reviewComment.textRef.value = "";
+      })
+      .catch((err) => console.error(err));
+  };
+
   return (
     <S.Wrapper>
       <HeaderSubtitle>{"Отзывы о товаре"}</HeaderSubtitle>
@@ -42,8 +69,14 @@ export default function Reviews({ data }) {
             name="new-adv-text"
             id="new-adv-text"
             rows="5"
+            onChange={onReviewTextAreaChangedHandler}
           />
-          <ButtonMain>{"Oпубликовать"}</ButtonMain>
+          <ButtonMain
+            disabled={!reviewComment.isPrepared}
+            onClick={onPostCommentClickHandler}
+          >
+            Oпубликовать
+          </ButtonMain>
         </FormMenu>
         <S.ReviewsList>
           {data.map((r) => (

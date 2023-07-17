@@ -52,8 +52,6 @@ export default function NewAdv({ onClose, data }) {
     const formElements = e.nativeEvent.srcElement;
     const formData = { imgs: [], imgsToDelete: [] }; //init object fileds first
 
-    console.log(e);
-
     //prepare data with form changes
     for (const el of formElements) {
       if (["INPUT", "TEXTAREA"].includes(el.tagName) && el.value) {
@@ -98,7 +96,6 @@ export default function NewAdv({ onClose, data }) {
         }
       }
     }
-    console.log("form data", formData);
 
     if (isEditAdvMode) {
       //for edit mode
