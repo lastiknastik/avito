@@ -63,6 +63,8 @@ export default function ArticleCard({ articleId }) {
   const { isSuccess: getComments_isSuccess, data: comments } =
     useGetCommentsByAdvIdQuery({ advId: articleId }, { skip: false });
 
+  getComments_isSuccess && console.log("comments", comments);
+
   const onRemoveAdvConfirmationPopoverConfirmHandler = (id) => {
     return () => {
       removeAdvById({ advId: id })
@@ -162,7 +164,7 @@ export default function ArticleCard({ articleId }) {
                 </S.ArticleInfoLink>
                 {showCommentsPopover && (
                   <Popover onClose={onCommentsPopoverCloseHandler}>
-                    <Reviews></Reviews>
+                    <Reviews data={comments}></Reviews>
                   </Popover>
                 )}
               </S.ArticleInfo>

@@ -51,13 +51,12 @@ export const FormLabels = css`
 
 export const ReviewsList = styled.div`
   width: 100%;
-  height: 495px;
 `;
 
 export const ReviewItemWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   margin: 15px 0;
 `;
 
@@ -76,6 +75,7 @@ export const ReviewItemContentLeft = styled.div`
     height: 40px;
     border-radius: 50%;
     background-color: #f0f0f0;
+    overflow: hidden;
   }
 
   div img {
@@ -100,15 +100,19 @@ export const ReviewItemContentRight = styled.div`
 `;
 
 export const ReviewItemContentName = styled.p`
-  margin-bottom: 12px;
+  margin-bottom: 4px;
   font-weight: 600;
+  font-family: "Noto Sans", sans-serif;
 
   span {
     margin-left: 10px;
     color: #5f5f5f;
+    font-weight: 400;
   }
 `;
 
 export const ReviewItemContentTitle = styled.h5`
   font-weight: 600;
+  font-family: "Noto Sans", sans-serif;
+  margin-bottom: -6px;
 `;
