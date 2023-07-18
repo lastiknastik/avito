@@ -40,3 +40,4 @@ JavaScript, React, Redux
 8. Advertisement editing
 9. Log out
 10. Review/Submit advertisement review comment
+11. Seller profile page
