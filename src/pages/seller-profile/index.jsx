@@ -15,7 +15,6 @@ import {
 } from "../../services/skyvitoSrvcAPI";
 import { formatSellsFrom } from "../../libs/utils";
 import ButtonPhone from "../../components/button-phone";
-import { SKYVITO_API_BASE_URL } from "../../constants";
 
 export default function Profile() {
   const { id } = useParams();
