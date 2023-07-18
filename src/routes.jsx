@@ -21,6 +21,8 @@ export default function AppRoutes() {
       <Route path="/signin" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/adv/:id" element={<Adv />} />
+      <Route path="/seller-profile/:id" element={<SellerProfile />} />
+      <Route path="/reviews" element={<Reviews />} />
       <Route
         element={
           <ProtectedRoute redirectPath="/signin" isAllowed={isAllowed} />
@@ -28,8 +30,6 @@ export default function AppRoutes() {
       >
         <Route path="/profile" element={<Profile />} />
         <Route path="/new-adv" element={<NewAdv />} />
-        <Route path="/seller-profile/:id" element={<SellerProfile />} />
-        <Route path="/reviews" element={<Reviews />} />
         {/* use same page with different parameters */}
         <Route path="/edit-adv" element={<NewAdv />} />
       </Route>
