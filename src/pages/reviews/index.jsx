@@ -10,20 +10,24 @@ import { usePostAdvCommentMutation } from "../../services/skyvitoSrvcAPI";
 import { useNavigate } from "react-router-dom";
 import { useIsAuthenticated } from "../../libs/auth";
 
-function ReviewItem({ name, date, text, avatar }) {
+function ReviewItem({ name, date, text, avatar, profileId }) {
+  const navigate = useNavigate();
   const avatarUrl = `${SKYVITO_API_BASE_URL}${avatar}`;
+  const onProfileClickHandler = () => {
+    navigate(`/seller-profile/${profileId}`);
+  };
 
   return (
     <S.ReviewItemWrapper>
       <S.ReviewItemContent>
         <S.ReviewItemContentLeft>
           <div>
-            <img src={avatarUrl} alt="" />
+            <img src={avatarUrl} alt="" onClick={onProfileClickHandler} />
           </div>
         </S.ReviewItemContentLeft>
         <S.ReviewItemContentRight>
           <S.ReviewItemContentName>
-            {name}
+            <span onClick={onProfileClickHandler}>{name}</span>
             <span>{date}</span>
           </S.ReviewItemContentName>
           <S.ReviewItemContentTitle>{"Комментарий"}</S.ReviewItemContentTitle>
@@ -93,6 +97,7 @@ export default function Reviews({ data, advId }) {
             <ReviewItem
               key={r.id}
               name={r.author.name}
+              profileId={r.author.id}
               avatar={r.author.avatar}
               date={prettifyDate(r.created_on)}
               text={r.text}

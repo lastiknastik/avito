@@ -83,6 +83,7 @@ export const ReviewItemContentLeft = styled.div`
     width: 100%;
     height: auto;
     object-fit: cover;
+    cursor: pointer;
   }
 `;
 
@@ -104,7 +105,11 @@ export const ReviewItemContentName = styled.p`
   font-weight: 600;
   font-family: "Noto Sans", sans-serif;
 
-  span {
+  span:first-of-type {
+    cursor: pointer;
+  }
+
+  span:last-of-type {
     margin-left: 10px;
     color: #5f5f5f;
     font-weight: 400;
