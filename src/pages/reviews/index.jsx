@@ -7,6 +7,8 @@ import { prettifyDate } from "../../libs/utils";
 import { SKYVITO_API_BASE_URL } from "../../constants";
 import { useState } from "react";
 import { usePostAdvCommentMutation } from "../../services/skyvitoSrvcAPI";
+import { useNavigate } from "react-router-dom";
+import { useIsAuthenticated } from "../../libs/auth";
 
 function ReviewItem({ name, date, text, avatar }) {
   const avatarUrl = `${SKYVITO_API_BASE_URL}${avatar}`;
@@ -33,6 +35,10 @@ function ReviewItem({ name, date, text, avatar }) {
 }
 
 export default function Reviews({ data, advId }) {
+  const navigate = useNavigate();
+
+  const isAuthenticated = useIsAuthenticated();
+
   const [postComment] = usePostAdvCommentMutation();
   const [reviewComment, setReviewComment] = useState({
     isPrepared: false,
@@ -49,13 +55,17 @@ export default function Reviews({ data, advId }) {
     e.preventDefault();
     e.stopPropagation();
 
-    postComment({ advId, comment: reviewComment.textRef.value })
-      .unwrap()
-      .then((payload) => {
-        console.debug("new comment created", payload);
-        reviewComment.textRef.value = "";
-      })
-      .catch((err) => console.error(err));
+    if (isAuthenticated) {
+      postComment({ advId, comment: reviewComment.textRef.value })
+        .unwrap()
+        .then((payload) => {
+          console.debug("new comment created", payload);
+          reviewComment.textRef.value = "";
+        })
+        .catch((err) => console.error(err));
+    } else {
+      navigate("/signin");
+    }
   };
 
   return (
