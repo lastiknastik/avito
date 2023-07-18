@@ -18,6 +18,7 @@ import Confirmation from "../confirmation";
 import { useNavigate } from "react-router-dom";
 import NewAdv from "../../pages/new-adv";
 import Reviews from "../../pages/reviews";
+import ButtonPhone from "../button-phone";
 
 export default function ArticleCard({ articleId }) {
   const navigate = useNavigate();
@@ -30,12 +31,6 @@ export default function ArticleCard({ articleId }) {
 
   const { isSuccess: currentUser_isSuccess, data: currentUser } =
     useGetUserQuery(); //cached data is ok
-
-  const [isPhoneHidden, setIsPhoneHidden] = useState(true);
-
-  const onShowPhoneBtnClickHandler = (e) => {
-    setIsPhoneHidden(!isPhoneHidden);
-  };
 
   const [
     showRemoveAdvConfirmationPopover,
@@ -107,6 +102,10 @@ export default function ArticleCard({ articleId }) {
 
   const onCommentsPopoverCloseHandler = () => {
     setShowCommentsPopover(false);
+  };
+
+  const onSellerClickHandler = (e) => {
+    navigate(`/seller-profile/${adv.user.id}`);
   };
 
   return isLoading ? (
@@ -200,23 +199,7 @@ export default function ArticleCard({ articleId }) {
                     )}
                   </React.Fragment>
                 ) : adv.user.phone ? (
-                  <ButtonMain onClick={onShowPhoneBtnClickHandler}>
-                    {isPhoneHidden ? "Показать телефон" : "Скрыть телефон"}
-                    <span>
-                      {isPhoneHidden
-                        ? adv.user.phone.substring(
-                            0,
-                            adv.user.phone.length - 9
-                          ) +
-                          adv.user.phone
-                            .replace(/[0-9]/g, "X")
-                            .substring(
-                              adv.user.phone.length - 9,
-                              adv.user.phone.length
-                            )
-                        : adv.user.phone}
-                    </span>
-                  </ButtonMain>
+                  <ButtonPhone phoneNumber={adv.user.phone} />
                 ) : (
                   ""
                 )}
@@ -230,10 +213,13 @@ export default function ArticleCard({ articleId }) {
                         : avatarStub
                     }
                     alt="avatar"
+                    onClick={onSellerClickHandler}
                   />
                 </S.AuthorImg>
                 <S.AuthorInfo>
-                  <S.AuthorName>{adv.user.name}</S.AuthorName>
+                  <S.AuthorName onClick={onSellerClickHandler}>
+                    {adv.user.name}
+                  </S.AuthorName>
                   <S.AuthorAbout>
                     {`Продает товары с ${formatSellsFrom(adv.user.sells_from)}`}
                   </S.AuthorAbout>

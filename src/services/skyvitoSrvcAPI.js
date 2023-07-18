@@ -329,6 +329,16 @@ export const skyvitoApi = createApi({
       },
       invalidatesTags: ["GetCommentsByAdvId"],
     }),
+    getUsersAll: builder.query({
+      query: () => {
+        return {
+          url: `user/all`,
+          method: "GET",
+          headers: { Accept: "application/json" },
+        };
+      },
+      providesTags: ["GetUsersAll"],
+    }),
   }),
 });
 
@@ -349,4 +359,5 @@ export const {
   useDeleteAdvImgMutation,
   useGetCommentsByAdvIdQuery,
   usePostAdvCommentMutation,
+  useGetUsersAllQuery,
 } = skyvitoApi;

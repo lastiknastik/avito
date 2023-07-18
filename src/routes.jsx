@@ -27,7 +27,7 @@ export default function AppRoutes() {
       >
         <Route path="/profile" element={<Profile />} />
         <Route path="/new-adv" element={<NewAdv />} />
-        <Route path="/seller-profile" element={<SellerProfile />} />
+        <Route path="/seller-profile/:id" element={<SellerProfile />} />
         <Route path="/reviews" element={<Reviews />} />
         {/* use same page with different parameters */}
         <Route path="/edit-adv" element={<NewAdv />} />

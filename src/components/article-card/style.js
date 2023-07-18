@@ -268,6 +268,7 @@ export const AuthorImg = styled.div`
     height: auto;
     display: block;
     object-fit: cover;
+    cursor: pointer;
   }
 `;
 
@@ -280,6 +281,7 @@ export const AuthorName = styled.p`
   line-height: 26px;
   font-weight: 600;
   color: #009ee4;
+  cursor: pointer;
 
   @media ${device.tablet} {
     font-size: 18px;
